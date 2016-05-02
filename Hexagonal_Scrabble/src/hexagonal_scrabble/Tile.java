@@ -11,8 +11,10 @@ package hexagonal_scrabble;
  */
 public class Tile {
  private char val;
- public Tile(char val){
+ private int points;
+ public Tile(char val, int points){
      this.val = val;
+     this.points = points;
  }
  public char getVal(){
      return val;
@@ -20,4 +22,14 @@ public class Tile {
  public void setVal(char newVal){
      val=newVal;
  }
+ public int getPoints(){
+     return points;
+ }
+ public void setPoints(char newPoints){
+     val=newPoints;
+ }
+ public String toString(){
+     return ""+val;
+ }
 }
+
