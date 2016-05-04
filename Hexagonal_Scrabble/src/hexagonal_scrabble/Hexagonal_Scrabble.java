@@ -21,13 +21,14 @@ public class Hexagonal_Scrabble extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        TileBag tiles = new TileBag();
         Button btn = new Button();
         btn.setText("Say 'Hello World'");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                System.out.println(tiles);
             }
         });
         
