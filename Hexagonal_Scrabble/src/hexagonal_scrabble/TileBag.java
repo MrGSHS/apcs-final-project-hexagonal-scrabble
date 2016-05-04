@@ -8,15 +8,16 @@ package hexagonal_scrabble;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 /**
  *
  * @author osimon8
  */
 public class TileBag {
-    ArrayList<Tile> tiles = new ArrayList<>();
+    List<Tile> tiles = new ArrayList<>();
     private static int[] numEachLetter = {9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1,2};
     
-    public TileBag(ArrayList<Tile> newTiles){
+    public TileBag(List<Tile> newTiles){
     tiles = newTiles;
 }
     public TileBag(){
@@ -31,30 +32,22 @@ public class TileBag {
     }
 
     
-    private ArrayList<Character> fillBag(){ //creates a list of random chars according to numEachLetter
-        //65-90 = 'A'-'Z'
-        final int TOTAL_TILES=100;
-        int[] totalLetters = numEachLetter;
-        char[] temp = new char[TOTAL_TILES];
-        int index = 0;
-        for(int i =0; i<totalLetters.length-1; i++){//add amount of tiles specified in numEachLetter
-            while(totalLetters[index]>0){
-                temp[i] = (char)(index+65);
-                totalLetters[index]--;
+    private List<Character> fillBag(){ //creates a list of random chars according to numEachLetter
+        List<Character> list = new ArrayList<>();
+        char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZb".toCharArray();
+        for (int i = 0; i < numEachLetter.length; i++) {
+            int count = numEachLetter[i];
+            char character = chars[i];
+            for (int a = 0; a < count; a++) {
+                list.add(character);
             }
-            }
-        for(int i = TOTAL_TILES-numEachLetter[26]; i<TOTAL_TILES; i++){
-            temp[i] = 'b'; //assign blank tiles
-        }
-        ArrayList<Character> list  = new ArrayList<>();
-        for(char c : temp){
-            list.add(c);
         }
         Collections.shuffle(list);
         return list;
         }
-    private ArrayList<Tile> makeTiles(){
-        ArrayList<Character> chars = fillBag();
+    private List<Tile> makeTiles(){
+        List<Character> chars = fillBag();
+        System.out.println("Characters: "+chars);
         ArrayList<Tile> tiles = new ArrayList<>();
         for(char c : chars){
             int points;
@@ -75,7 +68,12 @@ public class TileBag {
                 points = 10;
             else 
                 points = 0;//blank tile
-            tiles.add(new Tile(c,points));
+            Tile q;
+            if(c=='b')
+                  q = new BlankTile();
+            else
+            q = new Tile(c,points);
+            tiles.add(q);
         }
         return tiles;
     }
