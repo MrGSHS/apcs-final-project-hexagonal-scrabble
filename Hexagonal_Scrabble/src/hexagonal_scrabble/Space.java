@@ -10,5 +10,8 @@ package hexagonal_scrabble;
  * @author osimon8
  */
 public class Space {
-    
+    Tile tile;
+    public Space(){
+        tile=null;
+    }
 }

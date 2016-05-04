@@ -5,10 +5,19 @@
  */
 package hexagonal_scrabble;
 
+import java.util.List;
+
 /**
  *
  * @author osimon8
  */
 public class Word {
+    List<Tile> word;
+    public Word(List<Tile> word){
+        this.word = word;
+    }
+    public boolean isValid(){
+        return true;
+    }
     
 }
