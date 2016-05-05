@@ -5,6 +5,10 @@
  */
 package hexagonal_scrabble;
 
+/**
+ *
+ * @author osimon8
+ */
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Set;
@@ -13,16 +17,25 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Owen
- */
 public class Dictionary {
-    //private Set<String> words;
-   // public Dictionary(){
-        
-    //}
-    private static Set<String> readFile() throws FileNotFoundException{
+    Set<String> words = new HashSet<>();
+    private Dictionary() {
+        try {
+            words = readFile();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Dictionary.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static Dictionary getInstance() {
+        return DictionaryHolder.INSTANCE;
+    }
+    
+    private static class DictionaryHolder {
+
+        private static final Dictionary INSTANCE = new Dictionary();
+    }
+    private Set<String> readFile() throws FileNotFoundException{
         Set<String> dict = new HashSet<>();
         Scanner sc = new Scanner(new FileReader("words.txt"));
         while(sc.hasNext()){
@@ -30,14 +43,7 @@ public class Dictionary {
         }
         return dict;
     }
-    public static boolean contains(String s){
-        Set<String> words = new HashSet<>();
-        try {
-            words = readFile();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Dictionary.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public boolean contains(String s){
         return words.contains(s);
     }
-    
 }

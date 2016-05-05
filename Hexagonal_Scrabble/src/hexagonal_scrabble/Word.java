@@ -17,7 +17,7 @@ public class Word {
         this.word = word;
     }
     public boolean isValid(){
-        return Dictionary.contains(this.toString());
+        return Dictionary.getInstance().contains(this.toString());
     }
     public String toString(){
         String s ="";
