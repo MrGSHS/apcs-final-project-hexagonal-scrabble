@@ -10,7 +10,7 @@ package hexagonal_scrabble;
  * @author osimon8
  */
 public class Board {
-    Tile[][] board = new Tile[15][15];
+    Space[][] board = new Space[15][15];
     
     
 }

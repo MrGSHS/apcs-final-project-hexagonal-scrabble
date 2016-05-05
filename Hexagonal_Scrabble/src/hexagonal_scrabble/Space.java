@@ -14,4 +14,7 @@ public class Space {
     public Space(){
         tile=null;
     }
+    public Space(Tile t){
+        tile=t;
+    }
 }

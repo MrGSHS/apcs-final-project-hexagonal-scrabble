@@ -18,15 +18,11 @@ import java.util.logging.Logger;
  * @author Owen
  */
 public class Dictionary {
-    private Set<String> words;
-    public Dictionary(){
-        try {
-            words = readFile();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Dictionary.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    private Set<String> readFile() throws FileNotFoundException{
+    //private Set<String> words;
+   // public Dictionary(){
+        
+    //}
+    private static Set<String> readFile() throws FileNotFoundException{
         Set<String> dict = new HashSet<>();
         Scanner sc = new Scanner(new FileReader("words.txt"));
         while(sc.hasNext()){
@@ -34,7 +30,13 @@ public class Dictionary {
         }
         return dict;
     }
-    public boolean contains(String s){
+    public static boolean contains(String s){
+        Set<String> words = new HashSet<>();
+        try {
+            words = readFile();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Dictionary.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return words.contains(s);
     }
     

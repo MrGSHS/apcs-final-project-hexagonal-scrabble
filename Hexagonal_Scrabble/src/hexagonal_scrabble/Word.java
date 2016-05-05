@@ -17,7 +17,19 @@ public class Word {
         this.word = word;
     }
     public boolean isValid(){
-        return true;
+        return Dictionary.contains(this.toString());
+    }
+    public String toString(){
+        String s ="";
+        for(Tile t : word)
+            s+=t.toString();
+        return s;
+    }
+    public int points(){
+        int sum =0 ;
+        for(Tile t : word)
+            sum+=t.getPoints();
+        return sum;
     }
     
 }
