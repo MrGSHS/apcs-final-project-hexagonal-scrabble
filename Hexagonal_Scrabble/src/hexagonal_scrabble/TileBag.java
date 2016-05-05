@@ -47,7 +47,6 @@ public class TileBag {
         }
     private List<Tile> makeTiles(){
         List<Character> chars = fillBag();
-        System.out.println("Characters: "+chars);
         ArrayList<Tile> tiles = new ArrayList<>();
         for(char c : chars){
             int points;
