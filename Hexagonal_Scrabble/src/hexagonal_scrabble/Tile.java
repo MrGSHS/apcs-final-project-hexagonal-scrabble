@@ -5,6 +5,9 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Graphics;
+import java.awt.Polygon;
+
 /**
  *
  * @author osimon8
@@ -30,6 +33,18 @@ public class Tile {
  }
  public String toString(){
      return ""+val;
+ }
+ public void draw(int x, int y, Graphics g){
+     int radius = 10;
+     int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);
+     Polygon hexagon = new Polygon();
+     hexagon.addPoint(x+xMod, y-yMod);
+     hexagon.addPoint(x+radius,y);
+     hexagon.addPoint(x+xMod, y+yMod);
+     hexagon.addPoint(x-xMod, y+yMod);
+     hexagon.addPoint(x-radius, y);
+     hexagon.addPoint(x-xMod, y-yMod);
+     g.drawPolygon(hexagon);
  }
 }
 

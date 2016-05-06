@@ -5,17 +5,27 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author osimon8
  */
 public class Space {
     Tile tile;
+    int x,y;
     public Space(){
         tile=null;
+        x=0;
+        y=0;
     }
     public Space(Tile t){
         tile=t;
+    }
+    public Space(int x, int y, Tile t){
+        tile=t;
+        this.x=x;
+        this.y=y;
     }
     public Tile getTile(){
         return tile;
@@ -25,5 +35,9 @@ public class Space {
     }
     public String toString(){
         return "t";//tile.toString();
+    }
+    public void draw(Graphics g){
+        if(tile!=null)
+            tile.draw(x,y,g);
     }
 }

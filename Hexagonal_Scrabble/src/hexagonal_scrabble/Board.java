@@ -5,16 +5,26 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author osimon8
  */
 public class Board {
     Space[][] board = new Space[15][15];
+    int x,y;
     public Board(){
-        board = generate();
+        x=0;
+        y=0;
+        board = generate(x,y);
     }
-    private Space[][] generate(){//loops through and adds spaces in a hexagonal shape
+    public Board(int startX,int startY){
+        x=startX;
+        y=startY;
+        board = generate(x,y);
+    }
+    private Space[][] generate(int x, int y){//loops through and adds spaces in a hexagonal shape
         Space[][] spaces = new Space[15][15];
         int startIndex = 7, ctr = 0;
         boolean half = false;
@@ -39,5 +49,10 @@ public class Board {
             str+="\n";
         }
         return str;
+    }
+    
+    public void draw(int startX, int startY, Graphics g){
+        int x = startX, y = startY;
+        
     }
 }
