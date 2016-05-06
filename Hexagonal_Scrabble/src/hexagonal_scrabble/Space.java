@@ -23,4 +23,7 @@ public class Space {
     public void setTile(Tile t){
         tile = t;
     }
+    public String toString(){
+        return "t";//tile.toString();
+    }
 }

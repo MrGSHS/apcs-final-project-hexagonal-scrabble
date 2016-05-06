@@ -28,8 +28,7 @@ public class Hexagonal_Scrabble extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                TileBag tiles = new TileBag();
-                System.out.println(tiles);
+                System.out.println(TileBag.getInstance());
             }
         });
         

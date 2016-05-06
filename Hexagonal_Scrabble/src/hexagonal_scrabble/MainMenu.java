@@ -14,10 +14,10 @@ public class MainMenu extends javax.swing.JPanel {
     /**
      * Creates new form MainMenu
      */
-    TileBag t;
+    Board b;
     public MainMenu() {
         initComponents();
-        t = new TileBag();
+        b = new Board();
     }
 
     /**
@@ -80,7 +80,8 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        System.out.println(t);
+        System.out.println(TileBag.getInstance().toString());
+        System.out.println(b);
     }//GEN-LAST:event_jButton1MouseClicked
 
 

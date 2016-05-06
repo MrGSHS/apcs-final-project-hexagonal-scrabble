@@ -17,10 +17,10 @@ public class TileBag {
     List<Tile> tiles = new ArrayList<>();
     private static int[] numEachLetter = {9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1,2};
     
-    public TileBag(List<Tile> newTiles){
+    private TileBag(List<Tile> newTiles){
     tiles = newTiles;
 }
-    public TileBag(){
+    private TileBag(){
         tiles = makeTiles();
     }
     
@@ -31,7 +31,14 @@ public class TileBag {
         return str;
     }
 
+    public static TileBag getInstance() {
+        return TileBagHolder.INSTANCE;
+    }
     
+    private static class TileBagHolder {
+
+        private static final TileBag INSTANCE = new TileBag();
+    }
     private List<Character> fillBag(){ //creates a list of random chars according to numEachLetter
         List<Character> list = new ArrayList<>();
         char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZb".toCharArray();
@@ -75,6 +82,12 @@ public class TileBag {
             tiles.add(q);
         }
         return tiles;
+    }
+    public Tile next(){
+        return tiles.remove(0);
+    }
+    public boolean isEmpty(){
+        return tiles.isEmpty();
     }
     }
 
