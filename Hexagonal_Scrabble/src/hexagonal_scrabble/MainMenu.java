@@ -101,6 +101,7 @@ public class MainMenu extends javax.swing.JPanel {
         // TODO add your handling code here:
         System.out.println(TileBag.getInstance().toString());
         System.out.println(b);
+        System.out.println(Dictionary.getInstance().contains("pizza"));
         jLabel2.setVisible(false);
         jComboBox1.setVisible(true);
         jLabel1.setText("Setup Game");
