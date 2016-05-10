@@ -35,15 +35,23 @@ public class Tile {
      return ""+val;
  }
  public void draw(int x, int y, Graphics g){
-     int radius = 10;
+     int radius = Space.getRadius();
      int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);
      Polygon hexagon = new Polygon();
+     /*
      hexagon.addPoint(x+xMod, y-yMod);
      hexagon.addPoint(x+radius,y);
      hexagon.addPoint(x+xMod, y+yMod);
      hexagon.addPoint(x-xMod, y+yMod);
      hexagon.addPoint(x-radius, y);
      hexagon.addPoint(x-xMod, y-yMod);
+             */ //flat facing up 
+     hexagon.addPoint(x,y-radius);
+     hexagon.addPoint(x+yMod,y-xMod);
+     hexagon.addPoint(x+yMod,y+xMod);
+     hexagon.addPoint(x,y+radius);
+     hexagon.addPoint(x-yMod,y+xMod);
+     hexagon.addPoint(x-yMod,y-xMod); //point up
      g.drawPolygon(hexagon);
  }
 }

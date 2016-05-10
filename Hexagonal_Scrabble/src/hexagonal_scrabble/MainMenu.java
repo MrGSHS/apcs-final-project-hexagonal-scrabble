@@ -111,6 +111,7 @@ public class MainMenu extends javax.swing.JPanel {
         super.paintComponent(g);
         Tile t = new Tile('T',4);
         t.draw(100,100,g);
+        b.draw(g);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         

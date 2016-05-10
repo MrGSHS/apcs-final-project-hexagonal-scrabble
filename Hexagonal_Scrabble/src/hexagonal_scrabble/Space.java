@@ -14,6 +14,7 @@ import java.awt.Graphics;
 public class Space {
     Tile tile;
     int x,y;
+    static int radius = 10;
     public Space(){
         tile=null;
         x=0;
@@ -39,5 +40,8 @@ public class Space {
     public void draw(Graphics g){
         if(tile!=null)
             tile.draw(x,y,g);
+    }
+    public static int getRadius(){
+        return radius;
     }
 }

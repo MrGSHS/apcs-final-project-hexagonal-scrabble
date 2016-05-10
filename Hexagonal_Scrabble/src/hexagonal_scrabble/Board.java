@@ -17,26 +17,42 @@ public class Board {
     public Board(){
         x=0;
         y=0;
-        board = generate(x,y);
+        board = generate(x,y,Space.getRadius());
     }
     public Board(int startX,int startY){
         x=startX;
         y=startY;
-        board = generate(x,y);
+        board = generate(x,y,Space.getRadius());
     }
-    private Space[][] generate(int x, int y){//loops through and adds spaces in a hexagonal shape
-        Space[][] spaces = new Space[15][15];
-        int startIndex = 7, ctr = 0;
+    private Space[][] generate(int startX, int startY, int radius){//loops through and adds spaces in a hexagonal shape
+        Space[][] spaces = new Space[23][21];
+        int startIndex = 10, ctr = 0, internalCtr=-1, x = startX, y= startY;
+        int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
         boolean half = false;
         for(int i = 0; i<spaces.length; i++){
             for(int j = 0; j<=ctr; j++){
-                spaces[i][j+startIndex]=new Space(new Tile('T',4));
-                
+                spaces[i][j+startIndex]=new Space(x,y,new Tile('T',4));
+                x+=2*radius;
             }
-            if(!half && ctr == 14)
+            if(!half && ctr == 18){
                   half = true;
+                  internalCtr=0;
+            }
+            if(internalCtr>=0 && internalCtr<4){
+             internalCtr++;
+             ctr=20;
+             startIndex=0;
+            }
+            else{
             ctr = (!half)?ctr+2:ctr-2;
             startIndex = (!half)?startIndex-1:startIndex+1;
+            x += (!half)?-1*xMod:xMod;
+            }
+            if (ctr==20 && internalCtr==4){
+                ctr=18;
+                startIndex=1;
+            }
+            y+=2*radius;
         }
         return spaces;
     }
@@ -51,8 +67,11 @@ public class Board {
         return str;
     }
     
-    public void draw(int startX, int startY, Graphics g){
-        int x = startX, y = startY;
-        
+    public void draw(Graphics g){ //(x,y) = top left corner 
+        for(Space[] row : board){
+            for(Space s : row){
+                s.draw(g);
+            }
+         }
     }
 }
