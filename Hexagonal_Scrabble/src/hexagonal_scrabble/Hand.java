@@ -5,6 +5,7 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,9 @@ public class Hand {
         return str;
     }
     public void draw(Graphics g){
-        int x = 0, y=400;
+        int x = 50, y=300;
+        g.setColor(Color.PINK);
+        g.fillRect(x-10,y-10,(Tile.length()+30)*7-10,Tile.length()+20);
         for(Tile t : tiles){
             t.draw(x,y,g);
             x+=Tile.length()+30;

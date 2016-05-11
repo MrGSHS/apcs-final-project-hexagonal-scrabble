@@ -17,12 +17,20 @@ import javax.swing.JButton;
  */
 public class Tile extends JButton {
  private char val;
- private int points;
+ private int points,x,y;
  private static int length = 50;
  public Tile(char val, int points){
      this.val = val;
      this.points = points;
  }
+ 
+ public Tile(int x, int y, char val, int points){
+     this.val = val;
+     this.points = points;
+     this.x = x;
+     this.y = y;
+ }
+ 
  public char getVal(){
      return val;
  }
@@ -41,15 +49,37 @@ public class Tile extends JButton {
  public static int length(){
      return length;
  }
- public void draw(int x, int y, Graphics g){
+ 
+ private void TileMouseClicked(java.awt.event.MouseEvent evt) {                                      
+        System.out.println(val);
+    } 
+ 
+ public void draw(int x, int y, Graphics g){ //draw at different point;
+     this.x=x;
+     this.y=y;
+     draw(g);
+ }
+ 
+ public void setPosition(int x, int y){
+     this.x=x;
+     this.y=y;
+ }
+ 
+  public void draw(Graphics g){
      g.setColor(Color.white);
      g.fillRect(x,y,length,length);
      g.setColor(Color.black);
      g.drawRect(x,y,length,length);
-     Font f = g.getFont();
-     f = f.deriveFont((float)40); 
-     g.setFont(f); //set the font to a bigger size
-     g.drawString(""+val,x+(int)(0.25*length),y+(int)(0.75*length));
+     Font oldF = g.getFont();
+     Font newF = oldF.deriveFont((float)40); 
+     g.setFont(newF); //set the font to a bigger size
+     g.drawString(""+val,x+(int)(0.2*length),y+(int)(0.75*length));
+     g.setFont(oldF); //reset font to prevent issues in future paints
+     g.drawString(""+points,x+(int)(0.8*length),y+(int)(0.9*length)); 
+ }
+ 
+ public boolean contains(double x, double y){
+     return((x>=this.x && x<=this.x+length)&&(y>=this.y && y<=this.y+length));
  }
 }
 

@@ -6,6 +6,7 @@
 package hexagonal_scrabble;
 
 import java.awt.Graphics;
+import java.awt.Point;
 
 /**
  *
@@ -16,11 +17,17 @@ public class MainMenu extends javax.swing.JPanel {
     /**
      * Creates new form MainMenu
      */
-    Board b;
+    //Board b;
+    Hand h = new Hand();
+    Tile t = new Tile (100,100,'P',4);
+    private double mouseX;
+    private double mouseY;
     public MainMenu() {
+        mouseX=0;
+        mouseY=0;
         initComponents();
         jComboBox1.setVisible(false);
-        b = new Board(500,100);
+        //b = new Board(500,100);
     }
 
     /**
@@ -38,6 +45,12 @@ public class MainMenu extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(125, 217, 255));
+        setToolTipText("");
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel1.setText("Hexagonal Scrabble");
@@ -100,7 +113,7 @@ public class MainMenu extends javax.swing.JPanel {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         System.out.println(TileBag.getInstance().toString());
-        System.out.println(b);
+       // System.out.println(b);
         System.out.println(Dictionary.getInstance().contains("pizza"));
         jLabel2.setVisible(false);
         jComboBox1.setVisible(true);
@@ -109,11 +122,9 @@ public class MainMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1MouseClicked
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        b.draw(g);
-        Tile t = new Tile ('P',4);
-        Hand h = new Hand();
-        System.out.println(h);
-        t.draw(100,100,g);
+        //b.draw(g);
+        h.draw(g);
+        t.draw(g);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
@@ -122,6 +133,16 @@ public class MainMenu extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        //System.out.println(Dictionary.getInstance().contains("pizza"));
+        Point pos =this.getMousePosition();
+        mouseX = pos.getX();
+        mouseY = pos.getY();
+        if(t.contains(mouseX,mouseY))
+            System.out.println(t);
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
