@@ -20,7 +20,7 @@ public class MainMenu extends javax.swing.JPanel {
     public MainMenu() {
         initComponents();
         jComboBox1.setVisible(false);
-        b = new Board();
+        b = new Board(500,100);
     }
 
     /**
@@ -112,6 +112,9 @@ public class MainMenu extends javax.swing.JPanel {
         Tile t = new Tile('T',4);
         t.draw(100,100,g);
         b.draw(g);
+       // Space s = new Space(200,200,t);
+       // s=null;
+       // s.draw(g);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         

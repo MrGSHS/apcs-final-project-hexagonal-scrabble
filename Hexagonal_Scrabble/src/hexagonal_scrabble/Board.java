@@ -46,7 +46,7 @@ public class Board {
             else{
             ctr = (!half)?ctr+2:ctr-2;
             startIndex = (!half)?startIndex-1:startIndex+1;
-            x += (!half)?-1*xMod:xMod;
+            x += (!half)?(-1*xMod):xMod;
             }
             if (ctr==20 && internalCtr==4){
                 ctr=18;
@@ -70,7 +70,12 @@ public class Board {
     public void draw(Graphics g){ //(x,y) = top left corner 
         for(Space[] row : board){
             for(Space s : row){
+                try{
                 s.draw(g);
+                }
+                catch (NullPointerException e){
+                    //was null space
+                }
             }
          }
     }
