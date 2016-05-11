@@ -5,6 +5,7 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,5 +35,18 @@ public class Hand {
     
     public int size(){
         return tiles.size();
+    }
+    public String toString(){
+        String str="";
+        for(Tile t : tiles)
+             str+=t.getVal() + " ";
+        return str;
+    }
+    public void draw(Graphics g){
+        int x = 0, y=400;
+        for(Tile t : tiles){
+            t.draw(x,y,g);
+            x+=Tile.length()+30;
+        }
     }
 }

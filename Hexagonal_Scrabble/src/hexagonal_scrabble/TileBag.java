@@ -84,7 +84,7 @@ public class TileBag {
         return tiles;
     }
     public Tile next(){
-        return tiles.remove(0);
+        return tiles.size()>0?tiles.remove(0):null;
     }
     public boolean isEmpty(){
         return tiles.isEmpty();

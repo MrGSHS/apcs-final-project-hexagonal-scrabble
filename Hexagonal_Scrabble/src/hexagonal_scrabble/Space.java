@@ -5,7 +5,9 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Polygon;
 
 /**
  *
@@ -38,8 +40,29 @@ public class Space {
         return "t";//tile.toString();
     }
     public void draw(Graphics g){
-        if(tile!=null)
-            tile.draw(x,y,g);
+     int radius = Space.getRadius();
+     int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);
+     String val = ""+(tile!=null?tile.getVal():' ');
+     Polygon hexagon = new Polygon();
+     /*
+     hexagon.addPoint(x+xMod, y-yMod);
+     hexagon.addPoint(x+radius,y);
+     hexagon.addPoint(x+xMod, y+yMod);
+     hexagon.addPoint(x-xMod, y+yMod);
+     hexagon.addPoint(x-radius, y);
+     hexagon.addPoint(x-xMod, y-yMod);
+             */ //flat facing up 
+     hexagon.addPoint(x,y-radius);
+     hexagon.addPoint(x+yMod,y-xMod);
+     hexagon.addPoint(x+yMod,y+xMod);
+     hexagon.addPoint(x,y+radius);
+     hexagon.addPoint(x-yMod,y+xMod);
+     hexagon.addPoint(x-yMod,y-xMod); //point up
+     g.setColor(Color.white);
+     g.fillPolygon(hexagon);
+     g.setColor(Color.black);
+     g.drawPolygon(hexagon);
+     g.drawString(val,x-(int)((0.3)*radius),y+(int)(0.5*radius));
     }
     public static int getRadius(){
         return radius;

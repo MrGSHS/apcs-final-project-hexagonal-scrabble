@@ -31,7 +31,7 @@ public class Board {
         boolean half = false;
         for(int i = 0; i<spaces.length; i++){
             for(int j = 0; j<=ctr; j++){
-                spaces[i][j+startIndex]=new Space(x,y,new Tile('T',4));
+                spaces[i][j+startIndex]=new Space(x,y,TileBag.getInstance().next());
                 x+=2*radius;
             }
             if(!half && ctr == 18){
@@ -46,7 +46,7 @@ public class Board {
             else{
             ctr = (!half)?ctr+2:ctr-2;
             startIndex = (!half)?startIndex-1:startIndex+1;
-            x += (!half)?(-1*xMod):xMod;
+            x = (!half)?startX-(xMod*ctr):startX+(ctr*xMod);
             }
             if (ctr==20 && internalCtr==4){
                 ctr=18;
