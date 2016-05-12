@@ -52,4 +52,11 @@ public class Hand {
             x+=Tile.length()+30;
         }
     }
+    public Tile contains(double x, double y){
+        for(Tile t : tiles){
+                if(t.contains(x,y))
+                    return t;
+        }
+        return null;
+    }
 }

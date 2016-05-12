@@ -56,8 +56,21 @@ public class TileBag {
         List<Character> chars = fillBag();
         ArrayList<Tile> tiles = new ArrayList<>();
         for(char c : chars){
-            int points;
-            if(c=='E'||c=='A'||c=='I'||c=='O'||c=='N'||c=='R'||c=='T'||c=='L'||
+            int points = getPoints(c);
+            //blank tile
+            Tile q;
+            if(c=='b')
+                  q = new BlankTile();
+            else
+            q = new Tile(c,points);
+            tiles.add(q);
+        }
+        return tiles;
+    }
+    
+    public static int getPoints(char c){
+        int points;
+        if(c=='E'||c=='A'||c=='I'||c=='O'||c=='N'||c=='R'||c=='T'||c=='L'||
                     c=='S'||c=='U')
                 points = 1;
             else if(c=='D'||c=='G')
@@ -73,15 +86,8 @@ public class TileBag {
             else if(c=='Q'||c=='Z')
                 points = 10;
             else 
-                points = 0;//blank tile
-            Tile q;
-            if(c=='b')
-                  q = new BlankTile();
-            else
-            q = new Tile(c,points);
-            tiles.add(q);
-        }
-        return tiles;
+                points = 0;
+        return points;
     }
     public Tile next(){
         return tiles.size()>0?tiles.remove(0):null;

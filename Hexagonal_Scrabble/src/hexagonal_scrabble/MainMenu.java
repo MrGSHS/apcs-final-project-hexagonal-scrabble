@@ -7,6 +7,7 @@ package hexagonal_scrabble;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,6 +19,7 @@ public class MainMenu extends javax.swing.JPanel {
      * Creates new form MainMenu
      */
     //Board b;
+    JFrame frame;
     Hand h = new Hand();
     Tile t = new Tile (100,100,'P',4);
     private double mouseX;
@@ -27,7 +29,13 @@ public class MainMenu extends javax.swing.JPanel {
         mouseY=0;
         initComponents();
         jComboBox1.setVisible(false);
+        jPopupMenu1.setVisible(false);
         //b = new Board(500,100);
+        frame = new JFrame("Choose a Letter");
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.getContentPane().add(new LetterChooser());
+        frame.pack();
+        frame.setVisible(false);
     }
 
     /**
@@ -39,10 +47,24 @@ public class MainMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
+
+        jPopupMenu1.setMaximumSize(new java.awt.Dimension(100, 100));
+        jPopupMenu1.setMinimumSize(new java.awt.Dimension(100, 100));
+        jPopupMenu1.setPreferredSize(new java.awt.Dimension(100, 100));
+        jPopupMenu1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenu1PopupMenuWillBecomeVisible(evt);
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         setBackground(new java.awt.Color(125, 217, 255));
         setToolTipText("");
@@ -69,7 +91,7 @@ public class MainMenu extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2 Players", "3 Players", "4 Players" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2 Players", "3 Players", "4 Players" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -84,16 +106,16 @@ public class MainMenu extends javax.swing.JPanel {
                 .addContainerGap(350, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(289, 289, 289))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(371, 371, 371))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(405, 405, 405))))
+                        .addGap(405, 405, 405))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(289, 289, 289))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +164,16 @@ public class MainMenu extends javax.swing.JPanel {
         mouseY = pos.getY();
         if(t.contains(mouseX,mouseY))
             System.out.println(t);
+        if(h.contains(mouseX,mouseY)!=null){
+            System.out.println(h.contains(mouseX,mouseY));
+            if(h.contains(mouseX,mouseY).getPoints()>=0)//is a blank tile
+                frame.setVisible(true);//
+        }
     }//GEN-LAST:event_formMouseClicked
+
+    private void jPopupMenu1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenu1PopupMenuWillBecomeVisible
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPopupMenu1PopupMenuWillBecomeVisible
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -150,5 +181,6 @@ public class MainMenu extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     // End of variables declaration//GEN-END:variables
 }

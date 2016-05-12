@@ -54,7 +54,7 @@ public class Tile extends JButton {
         System.out.println(val);
     } 
  
- public void draw(int x, int y, Graphics g){ //draw at different point;
+ public void draw(int x, int y, Graphics g){ //draw at different point
      this.x=x;
      this.y=y;
      draw(g);
@@ -73,9 +73,15 @@ public class Tile extends JButton {
      Font oldF = g.getFont();
      Font newF = oldF.deriveFont((float)40); 
      g.setFont(newF); //set the font to a bigger size
-     g.drawString(""+val,x+(int)(0.2*length),y+(int)(0.75*length));
+     if(val=='Q') //Q must be drawn differently to fit
+         g.drawString(""+val,x+(int)(0.05*length),y+(int)(0.75*length));
+     else
+        g.drawString(""+val,x+(int)(0.2*length),y+(int)(0.75*length));
      g.setFont(oldF); //reset font to prevent issues in future paints
-     g.drawString(""+points,x+(int)(0.8*length),y+(int)(0.9*length)); 
+     if(points==10) //a point value of 10 must be drawn differently to fit
+         g.drawString(""+points,x+(int)(0.65*length),y+(int)(0.9*length)); 
+     else
+        g.drawString(""+points,x+(int)(0.8*length),y+(int)(0.9*length)); 
  }
  
  public boolean contains(double x, double y){
