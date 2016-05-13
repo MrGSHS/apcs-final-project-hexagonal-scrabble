@@ -5,6 +5,10 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
 /**
  *
  * @author Owen
@@ -15,6 +19,12 @@ public class BlankTile extends Tile{
         super(' ',0);
         t=null;
     }
+    
+    public BlankTile(int x, int y){
+     super(x,y,' ',0);
+     t=null;
+ }
+    
     public String toString(){
         return (t!=null)?t.toString():" ";
     }
@@ -24,4 +34,13 @@ public class BlankTile extends Tile{
     public void setVal(char s){
         t = new Tile(s,0);
     }
+    public void setVal(Tile tile){
+        t = tile;
+    }
+    public void draw(Graphics g){
+        if(t!=null)
+            t.draw(g, new Color(192,3,3));
+        else
+            super.draw(g);
+ }
 }

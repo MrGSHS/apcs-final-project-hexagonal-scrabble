@@ -66,12 +66,17 @@ public class Tile extends JButton {
  }
  
   public void draw(Graphics g){
+     this.draw(g, Color.black);
+ }
+  
+  public void draw(Graphics g, Color c){
      g.setColor(Color.white);
      g.fillRect(x,y,length,length);
      g.setColor(Color.black);
      g.drawRect(x,y,length,length);
      Font oldF = g.getFont();
-     Font newF = oldF.deriveFont((float)40); 
+     Font newF = oldF.deriveFont((float)40);
+     g.setColor(c);
      g.setFont(newF); //set the font to a bigger size
      if(val=='Q') //Q must be drawn differently to fit
          g.drawString(""+val,x+(int)(0.05*length),y+(int)(0.75*length));

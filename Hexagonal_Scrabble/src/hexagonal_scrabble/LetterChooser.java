@@ -5,7 +5,13 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -16,8 +22,18 @@ public class LetterChooser extends javax.swing.JPanel {
     /**
      * Creates new form LetterChooser
      */
-    public LetterChooser() {
+    List<Tile> tiles;
+    Tile chosen;
+    JFrame f;
+    BlankTile selected;
+    JPanel p;
+    public LetterChooser(JPanel orig, JFrame frame, BlankTile selected) {
         initComponents();
+        chosen = null;
+        tiles = new ArrayList<Tile>();
+        f= frame;
+        this.selected=selected;
+        p=orig;
     }
 
     /**
@@ -32,29 +48,51 @@ public class LetterChooser extends javax.swing.JPanel {
         setBackground(new java.awt.Color(245, 245, 245));
         setToolTipText("");
         setLocation(new java.awt.Point(200, 200));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
+            .addGap(0, 389, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 304, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        int ctr = 0;
+        Point pos =this.getMousePosition();
+        for(Tile t : tiles){
+            if(t!=null && t.contains(pos.getX(),pos.getY())){
+                //chosen = t;
+                selected.setVal(t);
+                f.dispose();
+                p.repaint();;
+            }
+        }
+    }//GEN-LAST:event_formMouseClicked
 
 public void paintComponent(Graphics g){
     super.paintComponent(g);
     int x = 10, y = 10, ctr=0;
     char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     for(char c : chars){
-        Tile t = new Tile(x,y,c,TileBag.getPoints(c));
-        t.draw(g);
-        x+=60;
-        y = 10+(60*(ctr/6));
         ctr++;
+        Tile t = new Tile(x,y,c,TileBag.getPoints(c));
+        tiles.add(t);
+        t.draw(g, new Color(192,3,3));
+        int level = ctr/6;
+        x+=60;
+        if(x>=360)
+            x=10;
+        y = 10+(60*level);     
     }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
