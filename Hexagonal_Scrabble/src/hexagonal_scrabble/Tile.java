@@ -92,5 +92,14 @@ public class Tile extends JButton {
  public boolean contains(double x, double y){
      return((x>=this.x && x<=this.x+length)&&(y>=this.y && y<=this.y+length));
  }
+ 
+ public int getX(){
+     return x;
+ }
+ 
+ public int getY(){
+     return x;
+ }
+ 
 }
 

@@ -24,7 +24,8 @@ public class MainMenu extends javax.swing.JPanel {
     Tile t = new BlankTile (100,100);
     private double mouseX;
     private double mouseY;
-    Tile selected;
+    LetterChooser c;
+    BlankTile selected;
     public MainMenu() {
         selected = null;
         mouseX=0;
@@ -35,7 +36,8 @@ public class MainMenu extends javax.swing.JPanel {
         //b = new Board(500,100);
         frame = new JFrame("Choose a Letter");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(new LetterChooser(this, frame, selected));
+        c = new LetterChooser(this, frame, selected);
+        frame.getContentPane().add(c);
         frame.pack();
         frame.setVisible(false);
     }
@@ -166,8 +168,11 @@ public class MainMenu extends javax.swing.JPanel {
         mouseY = pos.getY();
         if(t.contains(mouseX,mouseY)){
             System.out.println(t);
-            if(t.getPoints()==0)//is a blank tile
+            if(t.getPoints()==0){//is a blank tile
+                selected = (BlankTile)t;
+                c.setTile(selected);
                 frame.setVisible(true);
+            }
         }
         
         if(h.contains(mouseX,mouseY)!=null){

@@ -29,8 +29,8 @@ public class LetterChooser extends javax.swing.JPanel {
     JPanel p;
     public LetterChooser(JPanel orig, JFrame frame, BlankTile selected) {
         initComponents();
-        chosen = null;
-        tiles = new ArrayList<Tile>();
+        //chosen = null;
+        tiles = genTiles();
         f= frame;
         this.selected=selected;
         p=orig;
@@ -67,33 +67,42 @@ public class LetterChooser extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        int ctr = 0;
         Point pos =this.getMousePosition();
         for(Tile t : tiles){
             if(t!=null && t.contains(pos.getX(),pos.getY())){
-                //chosen = t;
-                selected.setVal(t);
+                chosen = t;
+                if(selected!=null)
+                    selected.setVal(t);
                 f.dispose();
-                p.repaint();;
+                p.repaint();
             }
         }
     }//GEN-LAST:event_formMouseClicked
-
-public void paintComponent(Graphics g){
-    super.paintComponent(g);
-    int x = 10, y = 10, ctr=0;
-    char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-    for(char c : chars){
+    private List<Tile> genTiles(){
+        tiles = new ArrayList<Tile>();
+        char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        int x=10,y=10,ctr = 0;
+        for(char c : chars){
         ctr++;
         Tile t = new Tile(x,y,c,TileBag.getPoints(c));
         tiles.add(t);
-        t.draw(g, new Color(192,3,3));
         int level = ctr/6;
         x+=60;
         if(x>=360)
             x=10;
         y = 10+(60*level);     
+        }
+        return tiles;
     }
+    public void setTile(BlankTile t){
+        selected = t;
+    }
+public void paintComponent(Graphics g){
+    super.paintComponent(g);
+    for(Tile t : tiles){
+        t.draw(g, new Color(192,3,3));  
+    }
+    
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
