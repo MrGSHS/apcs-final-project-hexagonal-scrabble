@@ -31,7 +31,7 @@ public class Board {
         boolean half = false;
         for(int i = 0; i<spaces.length; i++){
             for(int j = 0; j<=ctr; j++){
-                spaces[i][j+startIndex]=new Space(x,y,TileBag.getInstance().next());
+                spaces[i][j+startIndex]=new Space(x,y,null);
                 x+=2*radius;
             }
             if(!half && ctr == 18){
@@ -70,12 +70,8 @@ public class Board {
     public void draw(Graphics g){ //(x,y) = top left corner 
         for(Space[] row : board){
             for(Space s : row){
-                try{
-                s.draw(g);
-                }
-                catch (NullPointerException e){
-                    //was null space
-                }
+                if(s!=null)
+                    s.draw(g);
             }
          }
     }

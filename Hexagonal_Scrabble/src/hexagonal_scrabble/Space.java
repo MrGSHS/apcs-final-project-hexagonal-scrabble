@@ -56,7 +56,7 @@ public class Space {
         tile = t;
     }
     public String toString(){
-        return "t";//tile.toString();
+        return (tile!=null)?""+tile.getVal():"N";//tile.toString();
     }
     public void draw(Graphics g){
         Color background=null;

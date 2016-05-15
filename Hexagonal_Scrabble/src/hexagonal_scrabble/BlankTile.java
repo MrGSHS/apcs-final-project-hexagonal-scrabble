@@ -45,4 +45,12 @@ public class BlankTile extends Tile{
         else
             super.draw(g);
  }
+    
+    public Tile getTile(){
+        return t;
+    }
+    
+    public void setTile(Tile t){
+     this.t= t;
+    }
 }

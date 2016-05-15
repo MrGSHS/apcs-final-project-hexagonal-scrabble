@@ -50,6 +50,10 @@ public class Tile extends JButton {
      return length;
  }
  
+ public Tile getTile(){
+     return this;
+ }
+ 
  private void TileMouseClicked(java.awt.event.MouseEvent evt) {                                      
         System.out.println(val);
     } 
@@ -106,6 +110,15 @@ public class Tile extends JButton {
  public int getY(){
      return x;
  }
+ 
+ public void setTile(Tile t){
+     if(t!=null){
+        val = t.getVal();
+        x = t.getVal();
+        y = t.getVal();
+        points = t.getVal();
+     }
+    }
  
 }
 

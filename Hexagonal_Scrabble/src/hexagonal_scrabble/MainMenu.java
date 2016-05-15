@@ -7,6 +7,7 @@ package hexagonal_scrabble;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
 /**
@@ -162,26 +163,35 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        //System.out.println(Dictionary.getInstance().contains("pizza"));
         Point pos =this.getMousePosition();
         mouseX = pos.getX();
         mouseY = pos.getY();
-        if(t.contains(mouseX,mouseY)){
-            System.out.println(t);
-            if(t.getPoints()==0){//is a blank tile
-                selected = (BlankTile)t;
-                c.setTile(selected);
-                frame.setVisible(true);
+        if(evt.getButton() == MouseEvent.BUTTON1){
+            //System.out.println(Dictionary.getInstance().contains("pizza"));
+            if(t.contains(mouseX,mouseY)){
+                if(t.getPoints()==0 && t.getTile()==null){//is a blank tile
+                    selected = (BlankTile)t;
+                    c.setTile(selected);
+                    frame.setVisible(true);
+                }
+            }
+
+            //if(h.contains(mouseX,mouseY)!=null){
+                //System.out.println(h.contains(mouseX,mouseY));
+               // if(h.contains(mouseX,mouseY).getPoints()==0){//is a blank tile
+                   // frame.setVisible(true);
+
+              //  }
+            //}
+        }
+        else if(evt.getButton() == MouseEvent.BUTTON3){
+            if(t.contains(mouseX,mouseY)){
+                if(t.getPoints()==0 && t.getTile()!=null){//is a blank tile
+                    t.setTile(null);
+                    repaint();
+                }
             }
         }
-        
-        //if(h.contains(mouseX,mouseY)!=null){
-            //System.out.println(h.contains(mouseX,mouseY));
-           // if(h.contains(mouseX,mouseY).getPoints()==0){//is a blank tile
-               // frame.setVisible(true);
-                
-          //  }
-        //}
     }//GEN-LAST:event_formMouseClicked
 
     private void jPopupMenu1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenu1PopupMenuWillBecomeVisible
