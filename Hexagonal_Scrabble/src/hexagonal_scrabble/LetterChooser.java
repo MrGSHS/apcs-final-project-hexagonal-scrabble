@@ -84,7 +84,7 @@ public class LetterChooser extends javax.swing.JPanel {
         int x=10,y=10,ctr = 0;
         for(char c : chars){
         ctr++;
-        Tile t = new Tile(x,y,c,TileBag.getPoints(c));
+        Tile t = new Tile(x,y,c,0);
         tiles.add(t);
         int level = ctr/6;
         x+=60;

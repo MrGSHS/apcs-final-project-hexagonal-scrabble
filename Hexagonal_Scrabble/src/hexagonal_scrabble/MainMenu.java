@@ -18,9 +18,9 @@ public class MainMenu extends javax.swing.JPanel {
     /**
      * Creates new form MainMenu
      */
-    //Board b;
+    Board b;
     JFrame frame;
-    Hand h = new Hand();
+    //Hand h = new Hand();
     Tile t = new BlankTile (100,100);
     private double mouseX;
     private double mouseY;
@@ -33,7 +33,7 @@ public class MainMenu extends javax.swing.JPanel {
         initComponents();
         jComboBox1.setVisible(false);
         jPopupMenu1.setVisible(false);
-        //b = new Board(500,100);
+        b = new Board(500,100);
         frame = new JFrame("Choose a Letter");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         c = new LetterChooser(this, frame, selected);
@@ -148,8 +148,8 @@ public class MainMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1MouseClicked
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        //b.draw(g);
-        h.draw(g);
+        b.draw(g);
+        //h.draw(g);
         t.draw(g);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -175,13 +175,13 @@ public class MainMenu extends javax.swing.JPanel {
             }
         }
         
-        if(h.contains(mouseX,mouseY)!=null){
-            System.out.println(h.contains(mouseX,mouseY));
-            if(h.contains(mouseX,mouseY).getPoints()==0){//is a blank tile
-                frame.setVisible(true);
+        //if(h.contains(mouseX,mouseY)!=null){
+            //System.out.println(h.contains(mouseX,mouseY));
+           // if(h.contains(mouseX,mouseY).getPoints()==0){//is a blank tile
+               // frame.setVisible(true);
                 
-            }
-        }
+          //  }
+        //}
     }//GEN-LAST:event_formMouseClicked
 
     private void jPopupMenu1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenu1PopupMenuWillBecomeVisible

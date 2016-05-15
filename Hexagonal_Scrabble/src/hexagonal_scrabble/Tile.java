@@ -60,6 +60,12 @@ public class Tile extends JButton {
      draw(g);
  }
  
+ public void draw(int x, int y, Graphics g, Color c){ //draw at different point
+     this.x=x;
+     this.y=y;
+     draw(g, c);
+ }
+ 
  public void setPosition(int x, int y){
      this.x=x;
      this.y=y;

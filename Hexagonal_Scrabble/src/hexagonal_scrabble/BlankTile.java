@@ -36,12 +36,12 @@ public class BlankTile extends Tile{
     }
     public void setVal(Tile tile){
         int oldX = this.getX(), oldY = this.getY();
-        t = tile;
+        t = new Tile(oldX,oldY,tile.getVal(),0);
         t.setPosition(oldX,oldY);
     }
     public void draw(Graphics g){
         if(t!=null)
-            t.draw(g, new Color(192,3,3));
+            t.draw(this.getX(),this.getY(),g, new Color(192,3,3));
         else
             super.draw(g);
  }
