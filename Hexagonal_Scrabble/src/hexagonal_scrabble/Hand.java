@@ -8,6 +8,7 @@ package hexagonal_scrabble;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,5 +59,9 @@ public class Hand {
                     return t;
         }
         return null;
+    }
+    
+    public void shuffle(){
+        Collections.shuffle(tiles);
     }
 }

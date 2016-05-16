@@ -17,7 +17,7 @@ public class Space {
     Tile tile;
     int x,y;
     String special;
-    static int radius = 10;
+    static int radius = 15;
     public Space(){
         tile=null;
         x=0;
@@ -60,13 +60,15 @@ public class Space {
     }
     public void draw(Graphics g){
         Color background=null;
+        String val = ""+(tile!=null?tile.getVal():(special!=null)?special:' ');
      if(special==null)
          background = Color.white;
-     else if(special.equals("TW"));
-        background = Color.orange;
+     else if(special.equals("TW")){
+        background = Color.orange;   
+     }
     int radius = Space.getRadius();
     int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);
-    String val = ""+(tile!=null?tile.getVal():' ');
+    
     Polygon hexagon = new Polygon();
     /*
     hexagon.addPoint(x+xMod, y-yMod);

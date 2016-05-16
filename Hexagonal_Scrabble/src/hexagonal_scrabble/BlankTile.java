@@ -37,7 +37,7 @@ public class BlankTile extends Tile{
     public void setVal(Tile tile){
         int oldX = this.getX(), oldY = this.getY();
         t = new Tile(oldX,oldY,tile.getVal(),0);
-        t.setPosition(oldX,oldY);
+        //t.setPosition(oldX,oldY);
     }
     public void draw(Graphics g){
         if(t!=null)
