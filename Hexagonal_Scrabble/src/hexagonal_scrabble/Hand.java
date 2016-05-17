@@ -45,7 +45,7 @@ public class Hand {
         return str;
     }
     public void draw(Graphics g){
-        int x = 50, y=300;
+        int x = 100, y=300;
         g.setColor(Color.PINK);
         g.fillRect(x-10,y-10,(Tile.length()+30)*7-10,Tile.length()+20);
         for(Tile t : tiles){
@@ -64,4 +64,10 @@ public class Hand {
     public void shuffle(){
         Collections.shuffle(tiles);
     }
+    
+    public void deselect(){
+        for(Tile t : tiles)
+            t.setSelected(false);
+    }
+    
 }

@@ -69,6 +69,7 @@ public class MainMenu extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<String>();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         jPopupMenu1.setMaximumSize(new java.awt.Dimension(100, 100));
         jPopupMenu1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -85,6 +86,7 @@ public class MainMenu extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(125, 217, 255));
         setToolTipText("");
+        setPreferredSize(new java.awt.Dimension(900, 499));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -116,6 +118,11 @@ public class MainMenu extends javax.swing.JPanel {
         });
 
         jButton2.setText("Shuffle");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("End Turn");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +131,8 @@ public class MainMenu extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setText("Player: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,14 +140,18 @@ public class MainMenu extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(371, 371, 371))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(289, 289, 289))))
+                            .addGap(371, 371, 371))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(93, 93, 93)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap()))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(82, 82, 82)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,12 +165,16 @@ public class MainMenu extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -178,8 +195,10 @@ public class MainMenu extends javax.swing.JPanel {
             gameState++;
         }
         else if(gameState==1){
-            for(int i = 1; i<=jComboBox1.getItemCount(); i++)
+            System.out.println(jComboBox1.getItemCount());
+            for(int i = 1; i<=jComboBox1.getSelectedIndex()+2; i++)
                 players.add(new Player(i));
+            System.out.println(players);
             currPlayer = players.get(0);
             jButton1.setVisible(false);
             jLabel2.setVisible(false);
@@ -194,7 +213,8 @@ public class MainMenu extends javax.swing.JPanel {
         b.draw(g);
         if(currPlayer!=null)
             currPlayer.getHand().draw(g);
-        t.draw(g);
+        //t.draw(g);
+        jLabel3.setText((currPlayer!=null)?"Player: Player " + currPlayer.getNumber():"");
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
@@ -218,21 +238,32 @@ public class MainMenu extends javax.swing.JPanel {
 //                    frame.setVisible(true);
 //                }
 //            }
-            if(currPlayer.getHand()!=null && currPlayer.getHand().contains(mouseX,mouseY)!=null){
-                System.out.println(currPlayer.getHand().contains(mouseX,mouseY));
-                if(currPlayer.getHand().contains(mouseX,mouseY).getPoints()==0 && currPlayer.getHand().contains(mouseX,mouseY).getTile()==null){//is a blank tile
-                    frame.setVisible(true);
-                    selected = (BlankTile)currPlayer.getHand().contains(mouseX,mouseY);
-                    c.setTile(selected);
+            if(currPlayer !=null) {
+                Hand h = currPlayer.getHand();
+                Tile t = currPlayer.getHand().contains(mouseX,mouseY);
+                if(h != null && t != null){
+                    System.out.println(t);
+                    h.deselect();
+                    t.setSelected(!t.getSelected());
+                    repaint();
+                    if(t.getPoints()==0 && t.getTile()==null){//is a blank tile
+                       frame.setVisible(true);
+                       selected = (BlankTile)t;
+                       c.setTile(selected);
 
-                }
+                   }
+               }
             }
         }
         else if(evt.getButton() == MouseEvent.BUTTON3){
-            if(currPlayer!=null && currPlayer.getHand().contains(mouseX,mouseY).contains(mouseX,mouseY)){
-                if(currPlayer.getHand().contains(mouseX,mouseY).getPoints()==0 && currPlayer.getHand().contains(mouseX,mouseY).getTile()!=null){//is a blank tile
-                    currPlayer.getHand().contains(mouseX,mouseY).setTile(null);
-                    repaint();
+            if(currPlayer !=null) {
+                Hand h = currPlayer.getHand();
+                Tile t = currPlayer.getHand().contains(mouseX,mouseY);
+                if(t!=null && t.contains(mouseX,mouseY)){
+                    if(t.getPoints()==0 && t.getTile()!=null){//is a blank tile
+                        t.setTile(null);
+                        repaint();
+                    }
                 }
             }
         }
@@ -244,9 +275,16 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        currPlayer = (currPlayer.getNumber()==players.size())?players.get(0):players.get(currPlayer.getNumber()+1);
+        currPlayer.getHand().deselect();
+        currPlayer = (currPlayer.getNumber()==players.size())?players.get(0):players.get(currPlayer.getNumber());
         repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        currPlayer.getHand().shuffle();
+        repaint();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -256,6 +294,7 @@ public class MainMenu extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     // End of variables declaration//GEN-END:variables
 }

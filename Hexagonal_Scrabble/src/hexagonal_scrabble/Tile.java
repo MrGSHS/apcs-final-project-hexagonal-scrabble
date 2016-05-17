@@ -19,6 +19,7 @@ public class Tile extends JButton {
  private char val;
  private int points,x,y;
  private static int length = 50;
+ private boolean selected = false;
  public Tile(char val, int points){
      this.val = val;
      this.points = points;
@@ -80,9 +81,10 @@ public class Tile extends JButton {
  }
   
   public void draw(Graphics g, Color c){
+     Color border =  (selected)?Color.green:Color.black;
      g.setColor(Color.white);
      g.fillRect(x,y,length,length);
-     g.setColor(Color.black);
+     g.setColor(border);
      g.drawRect(x,y,length,length);
      Font oldF = g.getFont();
      Font newF = oldF.deriveFont((float)40);
@@ -119,6 +121,13 @@ public class Tile extends JButton {
         points = t.getVal();
      }
     }
+ public void setSelected(boolean state){
+     selected = state;
+     }
+ 
+public boolean getSelected(){
+    return selected;
+}
  
 }
 
