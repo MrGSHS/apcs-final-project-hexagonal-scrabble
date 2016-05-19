@@ -31,7 +31,7 @@ public class Board {
     }
     private Space[][] generate(int startX, int startY, int radius){//loops through and adds spaces in a hexagonal shape
         Space[][] spaces = new Space[50][50];
-        int startIndex = 21, ctr = 6, internalCtr=-1, x = startX, y= startY;
+        int startIndex = 21, ctr = 6, x = startX, y= startY;
         int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
         int limit = 15;
         boolean half = false, done = false;
@@ -67,6 +67,35 @@ public class Board {
     
     private void setSpecials(){
        board[0][21].setSpecial("TW");
+       board[0][26].setSpecial("TW");
+       board[9][12].setSpecial("TW");
+       board[9][26].setSpecial("TW");
+       board[18][21].setSpecial("TW");
+       board[18][26].setSpecial("TW");
+       board[9][19].setSpecial("Star");
+       board[8][18].setSpecial("DL");
+       board[8][21].setSpecial("DL");
+       board[10][18].setSpecial("DL");
+       board[10][21].setSpecial("DL");
+       board[7][17].setSpecial("TL");
+       board[7][23].setSpecial("TL");
+       board[11][17].setSpecial("TL");
+       board[11][23].setSpecial("TL");
+       board[6][16].setSpecial("DW");
+       board[6][25].setSpecial("DW");
+       board[12][16].setSpecial("DW");
+       board[12][25].setSpecial("DW");
+       board[5][20].setSpecial("DL");
+       board[5][22].setSpecial("DL");
+       board[13][20].setSpecial("DL");
+       board[13][22].setSpecial("DL");
+       board[4][19].setSpecial("TL");
+       board[4][24].setSpecial("TL");
+       board[14][19].setSpecial("TL");
+       board[14][24].setSpecial("TL");
+       board[1][23].setSpecial("DW");
+       board[17][23].setSpecial("DW");
+       
     }
     
     public String toString(){

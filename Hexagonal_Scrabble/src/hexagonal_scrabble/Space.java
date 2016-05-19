@@ -69,6 +69,12 @@ public class Space {
          background = Color.white;
      else if(tile!=null && !tile.isPermanent())
          background = new Color(204,209,159);//beige
+     else if(special.equals("Star")||special.equals("DW"))
+        background = Color.red;
+     else if(special.equals("DL"))
+        background = Color.CYAN;
+     else if(special.equals("TL"))
+        background = Color.green;
      else if(special.equals("TW")){
         background = Color.orange;   
      }
