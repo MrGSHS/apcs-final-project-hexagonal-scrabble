@@ -21,45 +21,15 @@ public class Board {
         x=0;
         y=0;
         board = generate(x,y,Space.getRadius());
+        setSpecials();
     }
     public Board(int startX,int startY){
         x=startX;
         y=startY;
         board = generate(x,y,Space.getRadius());
+        setSpecials();
     }
     private Space[][] generate(int startX, int startY, int radius){//loops through and adds spaces in a hexagonal shape
-        /*
-        Space[][] spaces = new Space[23][21];
-        int startIndex = 10, ctr = 0, internalCtr=-1, x = startX, y= startY;
-        int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
-        boolean half = false;
-        for(int i = 0; i<spaces.length; i++){
-            for(int j = 0; j<=ctr; j++){
-                spaces[i][j+startIndex]=new Space(x,y,null);
-                x+=2*radius;
-            }
-            if(!half && ctr == 18){
-                  half = true;
-                  internalCtr=0;
-            }
-            if(internalCtr>=0 && internalCtr<4){
-             internalCtr++;
-             ctr=20;
-             startIndex=0;
-            }
-            else{
-            ctr = (!half)?ctr+2:ctr-2;
-            startIndex = (!half)?startIndex-1:startIndex+1;
-            x = (!half)?startX-(xMod*ctr):startX+(ctr*xMod);
-            }
-            if (ctr==20 && internalCtr==4){
-                ctr=18;
-                startIndex=1;
-            }
-            y+=2*radius;
-        }
-        return spaces;
-    */
         Space[][] spaces = new Space[50][50];
         int startIndex = 21, ctr = 6, internalCtr=-1, x = startX, y= startY;
         int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
@@ -82,18 +52,23 @@ public class Board {
                     half=true;
                 }
                 }
-                else if((ctr>=limit || half) && ctr>6){
+                else if((ctr>=limit || half) && ctr>=6){
                 x = oldX-(xMod*(ctr-(limit+1)));
                 //oldX=x;
-                ctr--;
                 if(ctr==6)
                     done=true;
                 startIndex++;
+                ctr--;
                 }
             }
         }
         return spaces;
     }
+    
+    private void setSpecials(){
+       board[0][21].setSpecial("TW");
+    }
+    
     public String toString(){
         String str = "";
         for(int i = 0; i<board.length; i++){

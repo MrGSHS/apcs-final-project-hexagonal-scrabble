@@ -206,6 +206,7 @@ public class MainMenu extends javax.swing.JPanel {
             jLabel1.setText("Setup Game");
             jButton1.setText("Next");
             gameState++;
+            System.out.println(b);
         }
         else if(gameState==1){
             System.out.println(jComboBox1.getItemCount());
@@ -230,7 +231,6 @@ public class MainMenu extends javax.swing.JPanel {
         //t.draw(g);
         jLabel3.setText((currPlayer!=null)?"Player: Player " + currPlayer.getNumber():"");
         jLabel4.setText((gameState==2)?"Points: " + b.getPoints():"");
-        //System.out.println(b);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
@@ -260,8 +260,9 @@ public class MainMenu extends javax.swing.JPanel {
                 Tile t = currPlayer.getHand().contains(mouseX,mouseY);
                 if(h != null && t != null){
                     System.out.println(t);
+                    boolean set=t.getSelected();
                     h.deselect();
-                    t.setSelected(!t.getSelected());
+                    t.setSelected(!set);
                     repaint();
                     if(t.getPoints()==0 && t.getTile()==null){//is a blank tile
                        frame.setVisible(true);
@@ -279,9 +280,14 @@ public class MainMenu extends javax.swing.JPanel {
                         currPlayer.getHand().remove(sel.getHandIndex());
                         b.contains(mouseX,mouseY).setTile(sel);
                         b.contains(mouseX,mouseY);
+                        sel=null;
+                        currPlayer.getHand().deselect();
                     }
-                    sel=null;
-                    currPlayer.getHand().deselect();
+                    else if(sel==null && b.contains(mouseX,mouseY).getTile()!=null){
+                        currPlayer.getHand().add(b.contains(mouseX, mouseY).getTile());
+                        b.contains(mouseX,mouseY).setTile(null);
+                        currPlayer.getHand().deselect();
+                    }
                     repaint();
                 }
             }

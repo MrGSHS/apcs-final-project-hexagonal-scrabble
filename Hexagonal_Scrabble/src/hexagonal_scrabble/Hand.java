@@ -52,7 +52,7 @@ public class Hand {
     }
     public void draw(Graphics g){
         if(visible){
-            int x = 350, y=620;
+            int x = 350, y=630;
             g.setColor(Color.PINK);
             g.fillRect(x-10,y-10,(Tile.length()+30)*7-10,Tile.length()+20);
             for(Tile t : tiles){
