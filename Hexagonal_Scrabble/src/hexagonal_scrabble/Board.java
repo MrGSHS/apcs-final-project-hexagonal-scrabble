@@ -5,7 +5,10 @@
  */
 package hexagonal_scrabble;
 
+import static hexagonal_scrabble.Space.radius;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,6 +28,7 @@ public class Board {
         board = generate(x,y,Space.getRadius());
     }
     private Space[][] generate(int startX, int startY, int radius){//loops through and adds spaces in a hexagonal shape
+        /*
         Space[][] spaces = new Space[23][21];
         int startIndex = 10, ctr = 0, internalCtr=-1, x = startX, y= startY;
         int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
@@ -55,6 +59,40 @@ public class Board {
             y+=2*radius;
         }
         return spaces;
+    */
+        Space[][] spaces = new Space[50][50];
+        int startIndex = 21, ctr = 6, internalCtr=-1, x = startX, y= startY;
+        int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
+        int limit = 15;
+        boolean half = false, done = false;
+        int oldX=0;
+        for(int i = 0; i<spaces.length; i++){
+            if(!done){
+                for(int j = 0; j<ctr; j++){
+                    spaces[i][j+startIndex]=new Space(x,y,null);
+                    x+=2*xMod;
+                }
+                y+=yMod+radius;
+                if(ctr<limit && !half){
+                x = startX-(xMod*(ctr-5));
+                ctr++;
+                startIndex--;
+                if(ctr==limit){
+                    oldX = x;
+                    half=true;
+                }
+                }
+                else if((ctr>=limit || half) && ctr>6){
+                x = oldX-(xMod*(ctr-(limit+1)));
+                //oldX=x;
+                ctr--;
+                if(ctr==6)
+                    done=true;
+                startIndex++;
+                }
+            }
+        }
+        return spaces;
     }
     public String toString(){
         String str = "";
@@ -75,4 +113,80 @@ public class Board {
             }
          }
     }
+    
+    public Space contains(double posX, double posY){
+        for(Space[] row : board){
+            for(Space s : row){
+                if(s!=null && s.contains(posX,posY))
+                    return s;
+            }
+        }
+            return null;
+    }
+    
+    public void setSpace(int r, int c, Tile t){
+        if(board[r][c]!=null)
+            board[r][c].setTile(t);
+    }
+    
+    public void setSpace(Space s, Tile t){
+        findSpace(s).setTile(t);
+    }
+    
+    public List<Space> getAdjacentSpaces(int x, int y){
+        int radius = Space.getRadius();
+        int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
+        List<Space> spaces = new ArrayList<>();
+        spaces.add(findSpace(x-(2*xMod),y-(2*radius)));
+        spaces.add(findSpace(x+(2*xMod),y-(2*radius)));
+        spaces.add(findSpace(x+(2*xMod),y));
+        spaces.add(findSpace(x+(2*xMod),y+(2*radius)));
+        spaces.add(findSpace(x-(2*xMod),y+(2*radius)));
+        spaces.add(findSpace(x-(2*xMod),y));
+        return spaces;
+    }
+    
+    public Space findSpace(int x,int y){
+        for(Space[] row : board){
+            for(Space s : row){
+                if(s.getX()==x && s.getY()==y)
+                    return s;
+            }
+        }
+        return null;
+    }
+    
+    public Space findSpace(Space s){
+        return findSpace(s.getX(),s.getY());
+    }
+    
+    public List<Word> getWords(int x, int y){//unfinished
+        Space base = findSpace(x,y);
+        List<Space> spaces = getAdjacentSpaces(x,y);
+        for(int i = 0; i<spaces.size(); i++){
+            Space curr = spaces.get(i);
+            
+        }
+        return null;
+    }
+    
+    public void makePermanent(){
+        for(Space[] row : board){
+            for(Space s : row){
+               if(s!=null && s.getTile()!=null)
+                   s.getTile().setPermanent(true);
+            }
+        }
+    }
+    public int getPoints(){
+        int sum=0;
+        for(Space[] row : board){
+            for(Space s : row){
+               if(s!=null && s.getTile()!=null && !s.getTile().isPermanent())
+                   sum+=s.getTile().getPoints();
+            }
+        }
+        return sum;
+    }
+    
 }

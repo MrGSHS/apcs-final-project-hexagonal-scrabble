@@ -27,6 +27,7 @@ public class LetterChooser extends javax.swing.JPanel {
     JFrame f;
     BlankTile selected;
     JPanel p;
+    Hand h;
     public LetterChooser(JPanel orig, JFrame frame, BlankTile selected) {
         initComponents();
         //chosen = null;
@@ -34,6 +35,7 @@ public class LetterChooser extends javax.swing.JPanel {
         f= frame;
         this.selected=selected;
         p=orig;
+        //this.h=h;
     }
 
     /**

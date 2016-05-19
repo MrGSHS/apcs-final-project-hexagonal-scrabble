@@ -18,21 +18,27 @@ import java.util.List;
 public class Hand {
     List<Tile> tiles;
     public final int MAX_SIZE = 7;
+    private boolean visible = true;
     
     public Hand(){
         tiles = new ArrayList<Tile>();
-        for(int i = 0; i<MAX_SIZE; i++)
-              tiles.add(TileBag.getInstance().next());
+        for(int i = 0; i<MAX_SIZE; i++){
+              Tile temp = TileBag.getInstance().next();
+              tiles.add(temp);
+              temp.setHandIndex(i);
+        }
     }
     
     public void addTiles(int num){
         for(int i = 0; i<num; i++)
             tiles.add(TileBag.getInstance().next());
+        setIndices();
     }
     
     public void fill(){
        while(this.size()<MAX_SIZE && !TileBag.getInstance().isEmpty())
            tiles.add(TileBag.getInstance().next());
+       setIndices();
     }
     
     public int size(){
@@ -45,12 +51,14 @@ public class Hand {
         return str;
     }
     public void draw(Graphics g){
-        int x = 100, y=300;
-        g.setColor(Color.PINK);
-        g.fillRect(x-10,y-10,(Tile.length()+30)*7-10,Tile.length()+20);
-        for(Tile t : tiles){
-            t.draw(x,y,g);
-            x+=Tile.length()+30;
+        if(visible){
+            int x = 350, y=620;
+            g.setColor(Color.PINK);
+            g.fillRect(x-10,y-10,(Tile.length()+30)*7-10,Tile.length()+20);
+            for(Tile t : tiles){
+                t.draw(x,y,g);
+                x+=Tile.length()+30;
+            }
         }
     }
     public Tile contains(double x, double y){
@@ -63,11 +71,54 @@ public class Hand {
     
     public void shuffle(){
         Collections.shuffle(tiles);
+        setIndices();
     }
     
     public void deselect(){
         for(Tile t : tiles)
             t.setSelected(false);
+    }
+    
+    public void replace(Tile old, Tile t){
+         Collections.replaceAll(tiles,old,t);
+         setIndices();
+    }
+    
+    public Tile getSelected(){
+        for(Tile t : tiles){
+            if(t.getSelected())
+                return t;
+    }
+        return null;
+    }
+    
+    public void setVisible(boolean vis){
+     visible = vis;
+ }
+    public boolean isVisible(){
+     return visible;
+ }
+    public void setAllVisible(boolean vis){
+        for(Tile t : tiles)
+            t.setVisible(vis);
+    }
+    
+    public Tile remove(int index){
+        Tile t = tiles.remove(index);
+        setIndices();
+        return t;
+    }
+    
+    public void add(Tile t){
+        tiles.add(t);
+        setIndices();
+    }
+    
+    private void setIndices(){
+        for(int i = 0; i<tiles.size(); i++){
+            Tile t = tiles.get(i);
+            t.setHandIndex(i);
+        }
     }
     
 }

@@ -6,9 +6,6 @@
       <Color blue="f5" green="f5" red="f5" type="rgb"/>
     </Property>
     <Property name="toolTipText" type="java.lang.String" value=""/>
-    <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
-      <Point value="[200, 200]"/>
-    </Property>
   </Properties>
   <Events>
     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMouseClicked"/>

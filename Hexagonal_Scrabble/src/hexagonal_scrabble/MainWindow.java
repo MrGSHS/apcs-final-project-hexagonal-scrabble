@@ -21,6 +21,9 @@ public class MainWindow extends Application{
     frame.pack();
     frame.setVisible(true);
             }
+    
+    
+    
 
     @Override
     public void start(Stage primaryStage) throws Exception {

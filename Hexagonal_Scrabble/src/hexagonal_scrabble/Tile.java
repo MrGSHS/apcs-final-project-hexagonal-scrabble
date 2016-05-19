@@ -20,6 +20,9 @@ public class Tile extends JButton {
  private int points,x,y;
  private static int length = 50;
  private boolean selected = false;
+ private boolean visible = true;
+ private boolean permanent = false;
+ int handIndex=-1;
  public Tile(char val, int points){
      this.val = val;
      this.points = points;
@@ -30,6 +33,14 @@ public class Tile extends JButton {
      this.points = points;
      this.x = x;
      this.y = y;
+ }
+ 
+ public Tile(int x, int y, char val, int points, int hand){
+     this.val = val;
+     this.points = points;
+     this.x = x;
+     this.y = y;
+     handIndex = hand;
  }
  
  public char getVal(){
@@ -81,24 +92,26 @@ public class Tile extends JButton {
  }
   
   public void draw(Graphics g, Color c){
-     Color border =  (selected)?Color.green:Color.black;
-     g.setColor(Color.white);
-     g.fillRect(x,y,length,length);
-     g.setColor(border);
-     g.drawRect(x,y,length,length);
-     Font oldF = g.getFont();
-     Font newF = oldF.deriveFont((float)40);
-     g.setColor(c);
-     g.setFont(newF); //set the font to a bigger size
-     if(val=='Q') //Q must be drawn differently to fit
-         g.drawString(""+val,x+(int)(0.05*length),y+(int)(0.75*length));
-     else
-        g.drawString(""+val,x+(int)(0.2*length),y+(int)(0.75*length));
-     g.setFont(oldF); //reset font to prevent issues in future paints
-     if(points==10) //a point value of 10 must be drawn differently to fit
-         g.drawString(""+points,x+(int)(0.65*length),y+(int)(0.9*length)); 
-     else
-        g.drawString(""+points,x+(int)(0.8*length),y+(int)(0.9*length)); 
+     if(visible){
+        Color border = (this.getSelected())?Color.green:Color.black;
+        g.setColor(Color.white);
+        g.fillRect(x,y,length,length);
+        g.setColor(border);
+        g.drawRect(x,y,length,length);
+        Font oldF = g.getFont();
+        Font newF = oldF.deriveFont((float)40);
+        g.setColor(c);
+        g.setFont(newF); //set the font to a bigger size
+        if(val=='Q') //Q must be drawn differently to fit
+            g.drawString(""+val,x+(int)(0.05*length),y+(int)(0.75*length));
+        else
+           g.drawString(""+val,x+(int)(0.2*length),y+(int)(0.75*length));
+        g.setFont(oldF); //reset font to prevent issues in future paints
+        if(points==10) //a point value of 10 must be drawn differently to fit
+            g.drawString(""+points,x+(int)(0.65*length),y+(int)(0.9*length)); 
+        else
+           g.drawString(""+points,x+(int)(0.8*length),y+(int)(0.9*length)); 
+     }
  }
  
  public boolean contains(double x, double y){
@@ -113,13 +126,14 @@ public class Tile extends JButton {
      return x;
  }
  
- public void setTile(Tile t){
+ public Tile setTile(Tile t){
      if(t!=null){
         val = t.getVal();
         x = t.getVal();
         y = t.getVal();
         points = t.getVal();
      }
+     return this;
     }
  public void setSelected(boolean state){
      selected = state;
@@ -128,6 +142,24 @@ public class Tile extends JButton {
 public boolean getSelected(){
     return selected;
 }
+ public void setVisible(boolean vis){
+     visible = vis;
+ }
+ public boolean isVisible(){
+     return visible;
+ }
+ public void setHandIndex(int index){
+     handIndex= index;
+     }
  
+public int getHandIndex(){
+    return handIndex;
+}
+public void setPermanent(boolean perm){
+     permanent = perm;
+ }
+ public boolean isPermanent(){
+     return permanent;
+ }
 }
 

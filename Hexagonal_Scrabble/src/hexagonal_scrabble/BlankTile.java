@@ -13,6 +13,7 @@ import java.awt.Graphics;
  *
  * @author Owen
  */
+
 public class BlankTile extends Tile{
     Tile t;
     public BlankTile(){
@@ -32,7 +33,7 @@ public class BlankTile extends Tile{
         return (t!=null)?t.getVal():' ';
 }
     public void setVal(char s){
-        t = new Tile(s,0);
+        t = new Tile(getX(),getY(),s,0);
     }
     public void setVal(Tile tile){
         int oldX = this.getX(), oldY = this.getY();
@@ -42,17 +43,25 @@ public class BlankTile extends Tile{
         //t.setPosition(oldX,oldY);
     }
     public void draw(Graphics g){
+        System.out.println(super.getX());
+        System.out.println(super.getY());
         if(t!=null)
-            t.draw(this.getX(),this.getY(),g, new Color(192,3,3));
-        else
+            t.draw(super.getX(),super.getY(),g, new Color(192,3,3));
+        else{
+            System.out.println(super.getX());
+            System.out.println(super.getY());
             super.draw(g);
+            System.out.println(super.getX());
+            System.out.println(super.getY());
+        }
  }
     
     public Tile getTile(){
         return t;
     }
     
-    public void setTile(Tile t){
+    public Tile setTile(Tile t){
      this.t= t;
+     return t;
     }
 }

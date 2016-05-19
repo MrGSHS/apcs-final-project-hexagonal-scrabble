@@ -17,12 +17,12 @@ public class Space {
     Tile tile;
     int x,y;
     String special;
-    static int radius = 15;
+    static int radius = 20;
     public Space(){
         tile=null;
         x=0;
         y=0;
-        special = "TW";
+        special = null;
     }
     public Space(Tile t){
         tile=t;
@@ -31,7 +31,7 @@ public class Space {
         tile=t;
         this.x=x;
         this.y=y;
-        special = "TW";
+        special = null;
     }
     public Space(int x, int y, Tile t, String str){
         tile=t;
@@ -56,30 +56,27 @@ public class Space {
         tile = t;
     }
     public String toString(){
-        return (tile!=null)?""+tile.getVal():"N";//tile.toString();
+        return (tile!=null)?""+tile.getVal():"S";//tile.toString();
     }
     public void draw(Graphics g){
         Color background=null;
-        String val = ""+(tile!=null?tile.getVal():(special!=null)?special:' ');
-     if(special==null)
+        String val1 = ""+(tile!=null?tile.getVal():(special!=null)?special:' ');
+        String val2 = ""+(tile!=null?tile.getPoints():"");
+        background = Color.black;// visible if ifs fail
+     if(special==null && tile == null) 
          background = Color.white;
+     else if(tile!=null && tile.isPermanent())
+         background = Color.white;
+     else if(tile!=null && !tile.isPermanent())
+         background = new Color(204,209,159);//beige
      else if(special.equals("TW")){
         background = Color.orange;   
      }
-    int radius = Space.getRadius();
-    int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);
-    
+    int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);  
     Polygon hexagon = new Polygon();
-    /*
-    hexagon.addPoint(x+xMod, y-yMod);
-    hexagon.addPoint(x+radius,y);
-    hexagon.addPoint(x+xMod, y+yMod);
-    hexagon.addPoint(x-xMod, y+yMod);
-    hexagon.addPoint(x-radius, y);
-    hexagon.addPoint(x-xMod, y-yMod);
-            */ //flat facing up 
     hexagon.addPoint(x,y-radius);
     hexagon.addPoint(x+yMod,y-xMod);
+    hexagon.addPoint(x+yMod,y);
     hexagon.addPoint(x+yMod,y+xMod);
     hexagon.addPoint(x,y+radius);
     hexagon.addPoint(x-yMod,y+xMod);
@@ -88,11 +85,34 @@ public class Space {
     g.fillPolygon(hexagon);
     g.setColor(Color.black);
     g.drawPolygon(hexagon);
-    g.drawString(val,x-(int)((0.3)*radius),y+(int)(0.5*radius));
-     
-         
+    if(val2.equals("0"))
+        g.setColor(new Color(192,3,3));
+    g.drawString(val1,x-(int)((0.25)*radius),y+(int)(0.3*radius));
+    g.drawString(val2,x+(int)((0.25)*radius),y+(int)(0.6*radius));
     }
+    
+    public boolean contains(double posX, double posY){
+        int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);
+        if(posX>x+xMod||posX<x-xMod)
+            return false;
+        if(posY>y+radius||posY<y-radius)
+            return false;
+        if((posX>x+xMod && posY<y-yMod)||(posX>x+xMod && posY>y+yMod)||
+           (posX<x-xMod && posY<y-yMod)||(posX<x-xMod && posY>y+yMod))
+            return false;
+        return true;
+    }
+    
     public static int getRadius(){
         return radius;
     }
+    
+    public int getX(){
+        return x;
+    }
+    
+    public int getY(){
+        return y;
+    }
+   
 }
