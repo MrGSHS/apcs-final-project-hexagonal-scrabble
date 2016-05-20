@@ -8,7 +8,13 @@ package hexagonal_scrabble;
 import static hexagonal_scrabble.Space.radius;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -141,11 +147,11 @@ public class Board {
         int radius = Space.getRadius();
         int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
         List<Space> spaces = new ArrayList<>();
-        spaces.add(findSpace(x-(2*xMod),y-(2*radius)));
-        spaces.add(findSpace(x+(2*xMod),y-(2*radius)));
+        spaces.add(findSpace(x-(xMod),y-(2*radius)));
+        spaces.add(findSpace(x+(xMod),y-(2*radius)));
         spaces.add(findSpace(x+(2*xMod),y));
-        spaces.add(findSpace(x+(2*xMod),y+(2*radius)));
-        spaces.add(findSpace(x-(2*xMod),y+(2*radius)));
+        spaces.add(findSpace(x+(xMod),y+(2*radius)));
+        spaces.add(findSpace(x-(xMod),y+(2*radius)));
         spaces.add(findSpace(x-(2*xMod),y));
         return spaces;
     }
@@ -153,7 +159,7 @@ public class Board {
     public Space findSpace(int x,int y){
         for(Space[] row : board){
             for(Space s : row){
-                if(s.getX()==x && s.getY()==y)
+                if(s!=null && s.contains(x,y))//&& s.getX()==x && s.getY()==y)
                     return s;
             }
         }
@@ -164,14 +170,68 @@ public class Board {
         return findSpace(s.getX(),s.getY());
     }
     
-    public List<Word> getWords(int x, int y){//unfinished
-        Space base = findSpace(x,y);
-        List<Space> spaces = getAdjacentSpaces(x,y);
-        for(int i = 0; i<spaces.size(); i++){
-            Space curr = spaces.get(i);
-            
+    public List<Word> getWords(){//unfinished
+        Set<Word> total = new HashSet<>();
+        List<Word> words=null;
+        for(Space[] row : board){
+            for(Space s : row){
+                if(s!=null && s.getTile()!=null && !s.getTile().isPermanent()){
+                    int x = s.getX(), y =s.getY();
+                    Space base = findSpace(x,y);
+                    words = new LinkedList<>();
+                    List<Space> s0 = getAllAdjacentSpaces(x,y,0);
+                    List<Space> s1 = getAllAdjacentSpaces(x,y,1);
+                    List<Space> s2 = getAllAdjacentSpaces(x,y,2);
+                    List<Space> s3 = getAllAdjacentSpaces(x,y,3);
+                    List<Space> s4 = getAllAdjacentSpaces(x,y,4);
+                    List<Space> s5 = getAllAdjacentSpaces(x,y,5);
+                    s0.add(base);
+                    s0.addAll(s3);
+                    s1.add(base);
+                    s1.addAll(s4);
+                    s5.add(base);
+                    s5.addAll(s2);
+                    words.add(new Word(s0));
+                    words.add(new Word(s1));
+                    words.add(new Word(s5));
+                    int length = words.size();
+                    for(int i = 0; i<length; i++){
+                        if(words.get(i).length()==0)
+                            words.remove(i);
+                    } 
+                    total.addAll(words);
+                }
+                 }
         }
+        List<Word> finalW = new ArrayList(total);
+        int size=finalW.size();
+        for(int i =0; i<size; i++){
+            if(i<finalW.size() && finalW.get(i).length()<2)
+                finalW.remove(finalW.get(i));
+        }
+        return finalW;
+    }
+    
+    public Space getAdjacentSpace(int x, int y, int i){
+        if(i<=5 && findSpace(x,y)!=null)
+            return getAdjacentSpaces(x,y).get(i);
         return null;
+    }
+    
+    public List<Space> getAllAdjacentSpaces(int x, int y, int i){
+        List<Space> spaces = new LinkedList<>();
+        if(i<=5 && findSpace(x,y)!=null){
+            Space adjSpace = getAdjacentSpace(x,y,i);
+            if(adjSpace!=null && adjSpace.getTile()!=null){
+                spaces.add(adjSpace);
+                List<Space> newSpaces = getAllAdjacentSpaces(adjSpace.getX(),adjSpace.getY(),i);
+                if(newSpaces!=null)
+                    spaces.addAll(newSpaces);
+                if(i==0||i==1||i==5)
+                    Collections.reverse(spaces);
+            }
+        }
+        return spaces;
     }
     
     public void makePermanent(){
@@ -191,6 +251,19 @@ public class Board {
             }
         }
         return sum;
+    }
+    
+    public List<Tile> recall(){
+        List<Tile> tiles = new ArrayList<>();
+        for(Space[] row : board){
+            for(Space s : row){
+               if(s!=null && s.getTile()!=null && !s.getTile().isPermanent()){
+                 tiles.add(s.getTile());
+                 s.setTile(null);
+               }
+            }
+        }
+        return tiles;
     }
     
 }

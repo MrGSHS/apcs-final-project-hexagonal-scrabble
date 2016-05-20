@@ -114,6 +114,14 @@ public class Hand {
         setIndices();
     }
     
+    public void add(List<Tile> ts){
+        int size = ts.size();
+        for(int i =0; i<size; i++){
+            if(tiles.size()<7)
+                tiles.add(ts.remove(0));
+        }
+    }
+    
     private void setIndices(){
         for(int i = 0; i<tiles.size(); i++){
             Tile t = tiles.get(i);

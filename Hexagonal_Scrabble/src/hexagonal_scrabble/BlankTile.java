@@ -43,16 +43,10 @@ public class BlankTile extends Tile{
         //t.setPosition(oldX,oldY);
     }
     public void draw(Graphics g){
-        System.out.println(super.getX());
-        System.out.println(super.getY());
         if(t!=null)
             t.draw(super.getX(),super.getY(),g, new Color(192,3,3));
         else{
-            System.out.println(super.getX());
-            System.out.println(super.getY());
             super.draw(g);
-            System.out.println(super.getX());
-            System.out.println(super.getY());
         }
  }
     
