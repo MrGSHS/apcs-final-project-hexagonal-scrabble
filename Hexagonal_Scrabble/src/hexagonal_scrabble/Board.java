@@ -135,12 +135,15 @@ public class Board {
     }
     
     public void setSpace(int r, int c, Tile t){
-        if(board[r][c]!=null)
+        if(board[r][c]!=null){
             board[r][c].setTile(t);
+        }
     }
     
     public void setSpace(Space s, Tile t){
-        findSpace(s).setTile(t);
+        if(s!=null && findSpace(s)!=null){
+            findSpace(s).setTile(t);
+        }
     }
     
     public List<Space> getAdjacentSpaces(int x, int y){
@@ -172,13 +175,13 @@ public class Board {
     
     public List<Word> getWords(){//unfinished
         Set<Word> total = new HashSet<>();
-        List<Word> words=null;
+        Set<Word> words=null;
         for(Space[] row : board){
             for(Space s : row){
                 if(s!=null && s.getTile()!=null && !s.getTile().isPermanent()){
                     int x = s.getX(), y =s.getY();
                     Space base = findSpace(x,y);
-                    words = new LinkedList<>();
+                    words = new HashSet<>();
                     List<Space> s0 = getAllAdjacentSpaces(x,y,0);
                     List<Space> s1 = getAllAdjacentSpaces(x,y,1);
                     List<Space> s2 = getAllAdjacentSpaces(x,y,2);
@@ -195,20 +198,40 @@ public class Board {
                     words.add(new Word(s1));
                     words.add(new Word(s5));
                     int length = words.size();
+                    List<Word> temp = new ArrayList<>();
+                    temp.addAll(words);
                     for(int i = 0; i<length; i++){
-                        if(words.get(i).length()==0)
-                            words.remove(i);
+                        if(i<temp.size() && temp.get(i).length()<2){
+                            if(getNonPermanent()>1||!getAdjacentSpaces(temp.get(i).get(0).getX(),temp.get(i).get(0).getY()).isEmpty())
+                                temp.remove(i);
+                        }
                     } 
-                    total.addAll(words);
+                    
+                    total.addAll(temp);
                 }
                  }
         }
+        
         List<Word> finalW = new ArrayList(total);
+        /*
         int size=finalW.size();
         for(int i =0; i<size; i++){
-            if(i<finalW.size() && finalW.get(i).length()<2)
-                finalW.remove(finalW.get(i));
+            if(i<finalW.size() && finalW.get(i).length()<2){
+                finalW.remove(i);
+            }
         }
+        
+        size=finalW.size();
+        for(int i =0; i<size; i++){
+            if(i<finalW.size()){
+                while(Collections.frequency(finalW,finalW.get(i))>1){
+                    finalW.remove(finalW.get(i));
+                }
+            }
+        }
+        */
+        
+        
         return finalW;
     }
     
@@ -266,4 +289,14 @@ public class Board {
         return tiles;
     }
     
+    public int getNonPermanent(){
+        int sum=0;
+        for(Space[] row : board){
+            for(Space s :row){
+                if(s!=null && s.getTile()!= null && !s.getTile().isPermanent())
+                    sum++;
+            }   
+        }
+        return sum;
+    }
 }

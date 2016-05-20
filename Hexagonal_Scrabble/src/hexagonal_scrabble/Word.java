@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Word {
     List<Space> word;
+    int id;
     /*
     public Word(List<Tile> word){
         this.word = word;
@@ -22,6 +23,13 @@ public class Word {
     
     public Word(List<Space> words){
         this.word=words;
+        id = getID();
+    }
+    
+    public Space get(int index){
+        if(index<word.size())
+            return word.get(index);
+        return null;
     }
     
     public boolean isValid(){
@@ -53,7 +61,7 @@ public class Word {
             sum+=letterMod*s.getTile().getPoints();
         }
         sum*=specials.get(0);
-        if(!permanent())
+        if(notPermanent()&&length()>=7)
             return sum+50;
         else
             return sum;
@@ -63,11 +71,39 @@ public class Word {
         return word.size();
     }
     
-    public boolean permanent(){
+    public boolean notPermanent(){
         for(Space s : word){
-            if(!s.getTile().isPermanent())
+            if(s.getTile().isPermanent())
                 return false;
         }
         return true;
     }
+    public int getID(){
+        int sum=0;
+        for(Space s : word)
+            sum+=(int)Math.sqrt(s.getTile().getVal()*s.getX()+s.getY());
+        return sum/2;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Word other = (Word) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    public int hashCode(){
+        return id*4;
+    }
+
 }
