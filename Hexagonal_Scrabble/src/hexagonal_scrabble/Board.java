@@ -5,16 +5,13 @@
  */
 package hexagonal_scrabble;
 
-import static hexagonal_scrabble.Space.radius;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  *
@@ -235,6 +232,41 @@ public class Board {
         return finalW;
     }
     
+    public boolean oneDirection(){
+        List<Space> nonPerm = playedTiles();
+        for(Space space : nonPerm){
+            if (getDirections(space)>1){
+                    System.out.println(getDirections(space));
+                    System.out.println("FALSE");
+                    return false;
+            }
+        }
+        System.out.println("TRUE");
+        return true;
+    }
+    
+    public int getDirections(Space s){
+        if(s!=null)
+            return getDirections(s.getX(),s.getY());
+        return -1;
+    }
+    
+    public int getDirections(int x, int y){
+        List<Space> spaces = getAdjacentSpaces(x,y);
+        int sum = 0;
+        if((spaces.get(0).getTile()!=null && !spaces.get(0).getTile().isPermanent()) ||
+            (spaces.get(3).getTile()!=null && !spaces.get(3).getTile().isPermanent()))
+            sum++;
+        if((spaces.get(1).getTile()!=null && !spaces.get(1).getTile().isPermanent()) ||
+            (spaces.get(4).getTile()!=null && !spaces.get(4).getTile().isPermanent()))
+            sum++;
+        if((spaces.get(5).getTile()!=null && !spaces.get(5).getTile().isPermanent()) ||
+            (spaces.get(2).getTile()!=null && !spaces.get(2).getTile().isPermanent()))
+            sum++;
+        System.out.println(sum);
+        return sum;
+    }
+    
     public Space getAdjacentSpace(int x, int y, int i){
         if(i<=5 && findSpace(x,y)!=null)
             return getAdjacentSpaces(x,y).get(i);
@@ -277,14 +309,11 @@ public class Board {
     }
     
     public List<Tile> recall(){
+        List<Space> played = playedTiles();
         List<Tile> tiles = new ArrayList<>();
-        for(Space[] row : board){
-            for(Space s : row){
-               if(s!=null && s.getTile()!=null && !s.getTile().isPermanent()){
-                 tiles.add(s.getTile());
-                 s.setTile(null);
-               }
-            }
+        for(Space s : played){
+            tiles.add(s.getTile());
+            s.setTile(null);
         }
         return tiles;
     }
@@ -298,5 +327,17 @@ public class Board {
             }   
         }
         return sum;
+    }
+    
+    public List<Space> playedTiles(){
+        List<Space> spaces = new ArrayList<>();
+        for(Space[] row : board){
+            for(Space s : row){
+               if(s!=null && s.getTile()!=null && !s.getTile().isPermanent()){
+                 spaces.add(s);
+               }
+            }
+        }
+        return spaces;
     }
 }

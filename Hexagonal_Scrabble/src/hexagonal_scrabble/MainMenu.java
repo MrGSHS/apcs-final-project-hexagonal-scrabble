@@ -237,7 +237,6 @@ public class MainMenu extends javax.swing.JPanel {
         jLabel4.setText((gameState==2 && currWords!=null)?"Points: " + b.getPoints():"");
         if(gameState == 2){
             if(currWords!=null){
-                System.out.println(currWords);
                 int sum=0;
                 for(Word w : currWords)
                     sum+=w.points();
@@ -293,7 +292,8 @@ public class MainMenu extends javax.swing.JPanel {
             if (currPlayer!=null && currPlayer.getHand()!=null){
                 sel = currPlayer.getHand().getSelected();
                 if(b.contains(mouseX,mouseY)!=null){
-                    if(sel!=null && b.contains(mouseX,mouseY).getTile()==null){
+                    if(sel!=null && b.contains(mouseX,mouseY).getTile()==null &&
+                       b.oneDirection()){
                         currPlayer.getHand().deselect();
                         currPlayer.getHand().remove(sel.getHandIndex());
                         b.contains(mouseX,mouseY).setTile(sel);
