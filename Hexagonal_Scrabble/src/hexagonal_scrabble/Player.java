@@ -12,10 +12,21 @@ package hexagonal_scrabble;
 public class Player {
     private Hand hand;
     private int number;
+    private int points;
+    private String name;
     
     public Player(int number){
         this.number=number;
         hand = new Hand();
+        points = 0;
+        name = "Player " + number;
+    }
+    
+    public Player(int number, String name){
+        this.number=number;
+        hand = new Hand();
+        points = 0;
+        this.name = name;
     }
     
     public Hand getHand(){
@@ -24,6 +35,18 @@ public class Player {
     
     public int getNumber(){
         return number;
+    }
+    
+    public int getPoints(){
+        return points;
+    }
+    
+    public void addPoints(int points){
+        this.points+=points;
+    }
+        
+    public String getName(){
+        return name;
     }
     
 }

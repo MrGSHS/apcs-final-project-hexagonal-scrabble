@@ -61,7 +61,7 @@ public class Word {
             sum+=letterMod*s.getTile().getPoints();
         }
         sum*=specials.get(0);
-        if(notPermanent()&&length()>=7)
+        if(numNotPermanent()>=7)//used all of hand
             return sum+50;
         else
             return sum;
@@ -78,6 +78,16 @@ public class Word {
         }
         return true;
     }
+    
+    public int numNotPermanent(){
+        int sum=0;
+        for(Space s : word){
+            if(!s.getTile().isPermanent())
+                sum++;
+        }
+        return sum;
+    }
+    
     public int getID(){
         int sum=0;
         for(Space s : word)

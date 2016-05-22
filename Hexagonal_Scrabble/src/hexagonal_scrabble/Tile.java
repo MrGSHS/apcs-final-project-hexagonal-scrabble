@@ -8,14 +8,12 @@ package hexagonal_scrabble;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Polygon;
-import javax.swing.JButton;
 
 /**
  *
  * @author osimon8
  */
-public class Tile extends JButton {
+public class Tile{
  private char val;
  private int points,x,y;
  private static int length = 50;
@@ -65,10 +63,7 @@ public class Tile extends JButton {
  public Tile getTile(){
      return this;
  }
- 
- private void TileMouseClicked(java.awt.event.MouseEvent evt) {                                      
-        System.out.println(val);
-    } 
+
  
  public void draw(int x, int y, Graphics g){ //draw at different point
      this.x=x;

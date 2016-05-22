@@ -93,7 +93,11 @@ public class Space {
     g.drawPolygon(hexagon);
     if(val2.equals("0"))
         g.setColor(new Color(192,3,3));
-    g.drawString(val1,x-(int)((0.25)*radius),y+(int)(0.3*radius));
+    if(val1.equals("Star")){
+        drawStar(x,y,g);
+    }
+    else
+        g.drawString(val1,x-(int)((0.3)*radius),y+(int)(0.3*radius));
     g.drawString(val2,x+(int)((0.25)*radius),y+(int)(0.6*radius));
     }
     
@@ -107,6 +111,43 @@ public class Space {
            (posX<x-xMod && posY<y-yMod)||(posX<x-xMod && posY>y+yMod))
             return false;
         return true;
+    }
+    
+    public void drawStar(int startX, int startY, Graphics g){
+        int starRadius = (int)((0.5)*radius), currX = startX, currY = startY-starRadius;
+        int xMod = (int)(Math.cos(72*(Math.PI/180))*starRadius), xMod2 = (int)(Math.cos(36*(Math.PI/180))*starRadius);
+        int yMod = (int)(Math.sin(72*(Math.PI/180))*starRadius), yMod2 = (int)(Math.sin(36*(Math.PI/180))*starRadius);
+        g.setColor(Color.white);
+        Polygon star = new Polygon();
+        star.addPoint(currX,currY);
+        currX+=xMod;
+        currY+=yMod;
+        star.addPoint(currX,currY);
+        currX+=starRadius;
+        star.addPoint(currX,currY);
+        currX-= yMod;
+        currY+= xMod;
+        star.addPoint(currX,currY);
+        currX+=xMod;
+        currY+=yMod;
+        star.addPoint(currX,currY);
+        currX-=xMod2;
+        currY-=yMod2;
+        star.addPoint(currX,currY);
+        currX-=xMod2;
+        currY+=yMod2;
+        star.addPoint(currX,currY);
+        currX+=xMod;
+        currY-=yMod;
+        star.addPoint(currX,currY);
+        currX-=yMod;
+        currY-=xMod;
+        star.addPoint(currX,currY);
+        currX+=starRadius;
+        star.addPoint(currX,currY);
+        g.fillPolygon(star);
+        g.setColor(Color.black);
+        g.drawPolygon(star);
     }
     
     public static int getRadius(){

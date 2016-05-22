@@ -143,6 +143,11 @@ public class Board {
         }
     }
     
+    public List<Space> getAdjacentSpaces(Space s){
+        return getAdjacentSpaces(s.getX(),s.getY());
+    }
+    
+    
     public List<Space> getAdjacentSpaces(int x, int y){
         int radius = Space.getRadius();
         int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
@@ -170,7 +175,7 @@ public class Board {
         return findSpace(s.getX(),s.getY());
     }
     
-    public List<Word> getWords(){//unfinished
+    public List<Word> getWords(){
         Set<Word> total = new HashSet<>();
         Set<Word> words=null;
         for(Space[] row : board){
@@ -207,28 +212,8 @@ public class Board {
                     total.addAll(temp);
                 }
                  }
-        }
-        
+        }     
         List<Word> finalW = new ArrayList(total);
-        /*
-        int size=finalW.size();
-        for(int i =0; i<size; i++){
-            if(i<finalW.size() && finalW.get(i).length()<2){
-                finalW.remove(i);
-            }
-        }
-        
-        size=finalW.size();
-        for(int i =0; i<size; i++){
-            if(i<finalW.size()){
-                while(Collections.frequency(finalW,finalW.get(i))>1){
-                    finalW.remove(finalW.get(i));
-                }
-            }
-        }
-        */
-        
-        
         return finalW;
     }
     
@@ -236,13 +221,23 @@ public class Board {
         List<Space> nonPerm = playedTiles();
         for(Space space : nonPerm){
             if (getDirections(space)>1){
-                    System.out.println(getDirections(space));
-                    System.out.println("FALSE");
                     return false;
             }
         }
-        System.out.println("TRUE");
         return true;
+    }
+    
+    public boolean touchingTile(int x, int y){
+        return touchingTile(findSpace(x,y));
+    }
+    
+    public boolean touchingTile(Space s){
+        List<Space> temp = getAdjacentSpaces(s);
+        for(Space space : temp){
+            if(space != null && space.getTile()!=null)
+                return true;
+        }
+        return false;
     }
     
     public int getDirections(Space s){
@@ -263,7 +258,6 @@ public class Board {
         if((spaces.get(5).getTile()!=null && !spaces.get(5).getTile().isPermanent()) ||
             (spaces.get(2).getTile()!=null && !spaces.get(2).getTile().isPermanent()))
             sum++;
-        System.out.println(sum);
         return sum;
     }
     
@@ -292,8 +286,10 @@ public class Board {
     public void makePermanent(){
         for(Space[] row : board){
             for(Space s : row){
-               if(s!=null && s.getTile()!=null)
+               if(s!=null && s.getTile()!=null && !s.getTile().isPermanent()){
                    s.getTile().setPermanent(true);
+                   s.setSpecial(null);
+               }
             }
         }
     }
