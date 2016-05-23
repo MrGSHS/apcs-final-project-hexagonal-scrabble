@@ -190,12 +190,26 @@ public class Board {
                     List<Space> s3 = getAllAdjacentSpaces(x,y,3);
                     List<Space> s4 = getAllAdjacentSpaces(x,y,4);
                     List<Space> s5 = getAllAdjacentSpaces(x,y,5);
-                    s0.add(base);
-                    s0.addAll(s3);
+                    if(!s0.isEmpty() && s3.isEmpty()){
+                        s0.add(base);
+                        //s0.addAll(s3);
+                    }
+                    else{
+                        s0.add(base);
+                        s0.addAll(s3);
+                    }
                     s1.add(base);
                     s1.addAll(s4);
-                    s5.add(base);
-                    s5.addAll(s2);
+                    System.out.println(s5);
+                    System.out.println(s2);
+                    if(!s5.isEmpty() && s2.isEmpty()){
+                        s5.add(base);
+                        //s0.addAll(s2);
+                    }
+                    else{
+                        s5.add(base);
+                        s5.addAll(s2);
+                    }
                     words.add(new Word(s0));
                     words.add(new Word(s1));
                     words.add(new Word(s5));
@@ -223,9 +237,15 @@ public class Board {
             if (getDirections(space)>1){
                     return false;
             }
+            for(Space s : nonPerm){
+                if(!s.equals(space) && s.getX()==space.getX())
+                    return false;
+            }
         }
+        
         return true;
     }
+
     
     public boolean touchingTile(int x, int y){
         return touchingTile(findSpace(x,y));

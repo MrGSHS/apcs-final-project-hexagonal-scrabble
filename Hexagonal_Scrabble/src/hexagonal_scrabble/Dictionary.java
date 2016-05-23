@@ -49,7 +49,7 @@ public class Dictionary {
     }
     
     public boolean contains(Word w){
-        return words.contains(w.toString());
+        return w!=null?words.contains(w.toString()):false;
     }
     
     public boolean allValid(List<Word> l){
