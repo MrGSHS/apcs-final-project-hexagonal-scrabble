@@ -38,7 +38,7 @@ public class Word {
     public String toString(){
         String str ="";
         for(Space s : word)
-            str+=s.getTile().toString();
+            str+=s.getTile().toString().toLowerCase();
         return str;
     }
     public int points(){

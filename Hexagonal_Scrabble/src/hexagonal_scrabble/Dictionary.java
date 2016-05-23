@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,5 +46,17 @@ public class Dictionary {
     }
     public boolean contains(String s){
         return words.contains(s);
+    }
+    
+    public boolean contains(Word w){
+        return words.contains(w.toString());
+    }
+    
+    public boolean allValid(List<Word> l){
+        for(Word w : l){
+            if (!contains(w))
+                return false;
+        }
+        return true;
     }
 }
