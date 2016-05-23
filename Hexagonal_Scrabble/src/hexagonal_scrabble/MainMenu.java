@@ -237,13 +237,13 @@ public class MainMenu extends javax.swing.JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         currWords = b.getWords();
-        b.draw(g);
         if(currPlayer!=null)
             currPlayer.getHand().draw(g);
         //t.draw(g);
         jLabel3.setText((currPlayer!=null)?"Player: " + currPlayer.getName():"");
         jLabel4.setText((gameState==2 && currWords!=null)?"Points: " + b.getPoints():"");
         if(gameState == 2){
+            b.draw(g);
             String str="";
             for(Player p : players){
                 str+=p.getName()+ ":  " + p.getPoints() + "        ";
