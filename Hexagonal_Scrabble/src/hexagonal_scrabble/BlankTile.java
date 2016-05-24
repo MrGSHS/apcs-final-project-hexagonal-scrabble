@@ -58,4 +58,10 @@ public class BlankTile extends Tile{
      this.t= t;
      return t;
     }
+
+    @Override
+    public void setPosition(int x, int y) {
+        t.setPosition(x, y); //To change body of generated methods, choose Tools | Templates.
+    }
+     
 }

@@ -92,6 +92,15 @@ public class Hand {
         return null;
     }
     
+    public List<Tile> getAllSelected(){
+        List<Tile> temp = new ArrayList<>();
+        for(Tile t : tiles){
+            if(t.getSelected())
+                temp.add(t);
+    }
+        return temp;
+    }
+    
     public void setVisible(boolean vis){
      visible = vis;
  }
@@ -107,6 +116,13 @@ public class Hand {
         Tile t = tiles.remove(index);
         setIndices();
         return t;
+    }
+    
+    public void remove(List<Tile> l){
+        for(Tile t : l){
+            if(tiles.contains(t))
+                remove(t.getHandIndex());
+        }
     }
     
     public void add(Tile t){
