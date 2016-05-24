@@ -66,9 +66,9 @@ public class Space {
      if(special==null && tile == null) 
          background = Color.white;
      else if(tile!=null && tile.isPermanent())
-         background = Color.white;
+         background = new Color(239,245,192);//beige
      else if(tile!=null && !tile.isPermanent())
-         background = new Color(204,209,159);//beige
+         background = new Color(182,186,147);//grayish
      else if(special.equals("Star")||special.equals("DW"))
         background = Color.red;
      else if(special.equals("DL"))
@@ -79,7 +79,7 @@ public class Space {
         background = Color.orange;   
      }
     int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);  
-    Polygon hexagon = new Polygon();
+    Polygon hexagon = new Polygon(); 
     hexagon.addPoint(x,y-radius);
     hexagon.addPoint(x+yMod,y-xMod);
     hexagon.addPoint(x+yMod,y);

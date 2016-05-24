@@ -95,5 +95,16 @@ public class TileBag {
     public boolean isEmpty(){
         return tiles.isEmpty();
     }
+    
+    public void add(List<Tile> list){
+     for(Tile t : list){
+         tiles.add(t);
+     }   
     }
+    
+    public int size(){
+        return tiles.size();
+    }
+    
+ }
 

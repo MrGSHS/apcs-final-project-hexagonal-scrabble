@@ -200,8 +200,8 @@ public class Board {
                     }
                     s1.add(base);
                     s1.addAll(s4);
-                    System.out.println(s5);
-                    System.out.println(s2);
+                    //System.out.println(s5);
+                    //System.out.println(s2);
                     if(!s5.isEmpty() && s2.isEmpty()){
                         s5.add(base);
                         //s0.addAll(s2);
@@ -269,14 +269,14 @@ public class Board {
     public int getDirections(int x, int y){
         List<Space> spaces = getAdjacentSpaces(x,y);
         int sum = 0;
-        if((spaces.get(0).getTile()!=null && !spaces.get(0).getTile().isPermanent()) ||
-            (spaces.get(3).getTile()!=null && !spaces.get(3).getTile().isPermanent()))
+        if((spaces.get(0)!=null && spaces.get(0).getTile()!=null && !spaces.get(0).getTile().isPermanent()) ||
+            (spaces.get(3)!=null && spaces.get(3).getTile()!=null && !spaces.get(3).getTile().isPermanent()))
             sum++;
-        if((spaces.get(1).getTile()!=null && !spaces.get(1).getTile().isPermanent()) ||
-            (spaces.get(4).getTile()!=null && !spaces.get(4).getTile().isPermanent()))
+        if((spaces.get(1)!=null && spaces.get(1).getTile()!=null && !spaces.get(1).getTile().isPermanent()) ||
+            (spaces.get(4)!=null && spaces.get(4).getTile()!=null && !spaces.get(4).getTile().isPermanent()))
             sum++;
-        if((spaces.get(5).getTile()!=null && !spaces.get(5).getTile().isPermanent()) ||
-            (spaces.get(2).getTile()!=null && !spaces.get(2).getTile().isPermanent()))
+        if((spaces.get(5)!=null && spaces.get(5).getTile()!=null && !spaces.get(5).getTile().isPermanent()) ||
+            (spaces.get(2)!=null && spaces.get(2).getTile()!=null && !spaces.get(2).getTile().isPermanent()))
             sum++;
         return sum;
     }
