@@ -41,6 +41,12 @@ public class Space {
     }
     
     public Tile getTile(){
+        /*
+        if(tile!=null)
+            return tile.getTile();
+        else 
+            return tile;
+                */
         return tile;
     }
     

@@ -5,6 +5,7 @@
  */
 package hexagonal_scrabble;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -311,6 +312,8 @@ public class MainMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1MouseClicked
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        g.setColor(Color.black);
+        g.drawString("Welcome to Hexagonal Scrabble!",100,100);
         currWords = b.getWords();
         if(currPlayer!=null)
             currPlayer.getHand().draw(g);
@@ -384,6 +387,7 @@ public class MainMenu extends javax.swing.JPanel {
                     }
                }
             }
+            
             Tile sel= null;
             if (currPlayer!=null && currPlayer.getHand()!=null){
                 sel = currPlayer.getHand().getSelected();

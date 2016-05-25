@@ -21,6 +21,7 @@ public class MainWindow extends Application{
     frame.getContentPane().add(new MainMenu());
     frame.pack();
     frame.setVisible(true);
+    
             }
     
     

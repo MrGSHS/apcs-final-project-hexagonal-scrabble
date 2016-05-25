@@ -36,14 +36,27 @@ public class BlankTile extends Tile{
         t = new Tile(getX(),getY(),s,0);
     }
     public void setVal(Tile tile){
-        int oldX = this.getX(), oldY = this.getY();
+        int oldX, oldY;
+        if(t!=null){
+            oldX = t.getX();
+            oldY = t.getY();
+        }
+        else{
+             oldX = this.getX();
+             oldY = this.getY();
+        }
         t = new Tile(oldX,oldY,tile.getVal(),0);
         t.setSelected(tile.getSelected());
     }
     public void draw(Graphics g){
-        if(t!=null)
+        if(t!=null){
+            System.out.println(t.getX());
+            System.out.println(t.getY()+"\n");
             t.draw(g, new Color(192,3,3));
+        }
         else{
+            System.out.println(this.getX());
+            System.out.println(this.getY()+"\n p");
             super.draw(g);
         }
  }
@@ -53,13 +66,15 @@ public class BlankTile extends Tile{
     }
     
     public Tile setTile(Tile t){
-     this.t= t;
+     setVal(t);
      return t;
     }
     
     public void setPosition(int x,int y){
-        if(t!=null)
-        t   .setPosition(x,y);
+        if(t!=null){
+            super.setPosition(x,y);
+            t.setPosition(x,y);
+        }
         else 
             super.setPosition(x,y);
     }
@@ -77,5 +92,20 @@ public class BlankTile extends Tile{
         else 
             return super.getSelected();
     }
+    
+    public void setHandIndex(int i){
+        super.setHandIndex(i);
+        if(t!=null)
+            t.setHandIndex(i);
+    }
+    
+    public boolean contains(int x, int y){
+        if(t!=null)
+            return t.contains(x,y);
+        else 
+            return super.contains(x,y);
+    
+    }
+    
     
 }

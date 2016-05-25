@@ -118,7 +118,7 @@ public class Tile{
  }
  
  public int getY(){
-     return x;
+     return y;
  }
  
  public Tile setTile(Tile t){
