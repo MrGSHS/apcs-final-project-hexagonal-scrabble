@@ -190,6 +190,9 @@ public class Board {
                     List<Space> s3 = getAllAdjacentSpaces(x,y,3);
                     List<Space> s4 = getAllAdjacentSpaces(x,y,4);
                     List<Space> s5 = getAllAdjacentSpaces(x,y,5);
+                    Collections.reverse(s0);
+                    Collections.reverse(s1);
+                    Collections.reverse(s5);
                     if(!s0.isEmpty() && s3.isEmpty()){
                         s0.add(base);
                         //s0.addAll(s3);
@@ -203,7 +206,10 @@ public class Board {
                     //System.out.println(s5);
                     //System.out.println(s2);
                     if(!s5.isEmpty() && s2.isEmpty()){
+                        //System.out.println(s5 + "\n+n+");
+                        //System.out.println(s2 + "\n+p+");
                         s5.add(base);
+                        //System.out.println(s5);
                         //s0.addAll(s2);
                     }
                     else{
@@ -260,6 +266,15 @@ public class Board {
         return false;
     }
     
+    public boolean touchingPermanentTile(Space s){
+        List<Space> temp = getAdjacentSpaces(s);
+        for(Space space : temp){
+            if(space != null && space.getTile()!=null && space.getTile().isPermanent())
+                return true;
+        }
+        return false;
+    }
+    
     public int getDirections(Space s){
         if(s!=null)
             return getDirections(s.getX(),s.getY());
@@ -296,10 +311,12 @@ public class Board {
                 List<Space> newSpaces = getAllAdjacentSpaces(adjSpace.getX(),adjSpace.getY(),i);
                 if(newSpaces!=null)
                     spaces.addAll(newSpaces);
-                if(i==0||i==1||i==5)
-                    Collections.reverse(spaces);
-            }
-        }
+//                if(i==0||i==1||i==5){
+//                    Collections.reverse(spaces);
+//                    System.out.println(spaces);
+//                }
+            }            
+        } 
         return spaces;
     }
     

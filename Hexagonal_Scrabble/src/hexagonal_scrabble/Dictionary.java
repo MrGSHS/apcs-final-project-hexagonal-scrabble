@@ -38,7 +38,7 @@ public class Dictionary {
     }
     private Set<String> readFile() throws FileNotFoundException{
         Set<String> dict = new HashSet<>();
-        Scanner sc = new Scanner(new FileReader("words.txt"));
+        Scanner sc = new Scanner(new FileReader("words2.txt"));
         while(sc.hasNext()){
             dict.add(sc.nextLine());
         }

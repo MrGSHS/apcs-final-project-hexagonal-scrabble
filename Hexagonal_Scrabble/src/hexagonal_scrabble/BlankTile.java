@@ -38,13 +38,11 @@ public class BlankTile extends Tile{
     public void setVal(Tile tile){
         int oldX = this.getX(), oldY = this.getY();
         t = new Tile(oldX,oldY,tile.getVal(),0);
-        System.out.println(tile);
-        System.out.println(t);
-        //t.setPosition(oldX,oldY);
+        t.setSelected(tile.getSelected());
     }
     public void draw(Graphics g){
         if(t!=null)
-            t.draw(super.getX(),super.getY(),g, new Color(192,3,3));
+            t.draw(g, new Color(192,3,3));
         else{
             super.draw(g);
         }
@@ -58,10 +56,26 @@ public class BlankTile extends Tile{
      this.t= t;
      return t;
     }
-
-    @Override
-    public void setPosition(int x, int y) {
-        t.setPosition(x, y); //To change body of generated methods, choose Tools | Templates.
+    
+    public void setPosition(int x,int y){
+        if(t!=null)
+        t   .setPosition(x,y);
+        else 
+            super.setPosition(x,y);
     }
      
+    public void setSelected(boolean b){
+        if(t!=null)
+            t.setSelected(b);
+        else 
+            super.setSelected(b);
+    }
+    
+    public boolean getSelected(){
+        if(t!=null)
+            return t.getSelected();
+        else 
+            return super.getSelected();
+    }
+    
 }

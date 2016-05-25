@@ -56,7 +56,8 @@ public class Hand {
             g.setColor(Color.PINK);
             g.fillRect(x-10,y-10,(Tile.length()+30)*7-10,Tile.length()+20);
             for(Tile t : tiles){
-                t.draw(x,y,g);
+                t.setPosition(x,y);
+                t.draw(g);
                 x+=Tile.length()+30;
             }
         }
