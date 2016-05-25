@@ -44,6 +44,7 @@ public class Hand {
     public int size(){
         return tiles.size();
     }
+    @Override
     public String toString(){
         String str="";
         for(Tile t : tiles)
@@ -75,6 +76,9 @@ public class Hand {
         setIndices();
     }
     
+    /**
+     *deselects every tile
+     */
     public void deselect(){
         for(Tile t : tiles)
             t.setSelected(false);
@@ -85,6 +89,10 @@ public class Hand {
          setIndices();
     }
     
+    /**
+     *gets the selected tile
+     * @return
+     */
     public Tile getSelected(){
         for(Tile t : tiles){
             if(t.getSelected())
@@ -93,6 +101,10 @@ public class Hand {
         return null;
     }
     
+    /**
+     *gets EVERY selected tile (in the case of exchanging)
+     * @return
+     */
     public List<Tile> getAllSelected(){
         List<Tile> temp = new ArrayList<>();
         for(Tile t : tiles){
@@ -144,6 +156,14 @@ public class Hand {
             Tile t = tiles.get(i);
             t.setHandIndex(i);
         }
+    }
+    
+    public int getPoints(){
+        int sum = 0;
+        for(Tile t : tiles){
+            sum+=t.getPoints();
+        }
+        return sum;
     }
     
 }

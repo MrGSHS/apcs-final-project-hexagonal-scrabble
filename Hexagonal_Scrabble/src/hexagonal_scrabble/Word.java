@@ -32,15 +32,25 @@ public class Word {
         return null;
     }
     
+    /**
+     *checks to see if word is valid in dictionary
+     * @return
+     */
     public boolean isValid(){
         return Dictionary.getInstance().contains(this.toString());
     }
+    @Override
     public String toString(){
         String str ="";
         for(Space s : word)
             str+=s.getTile().toString().toLowerCase();
         return str;
     }
+
+    /**
+     *calculates points for the word
+     * @return
+     */
     public int points(){
         int sum =0;
         List<Integer> specials =new LinkedList<>();
@@ -71,6 +81,10 @@ public class Word {
         return word.size();
     }
     
+    /**
+     *if the whole word is not permanent, return true
+     * @return
+     */
     public boolean notPermanent(){
         for(Space s : word){
             if(s.getTile().isPermanent())
@@ -79,6 +93,10 @@ public class Word {
         return true;
     }
     
+    /**
+     *gets the number of nonpermanent tiles
+     * @return
+     */
     public int numNotPermanent(){
         int sum=0;
         for(Space s : word){
@@ -88,6 +106,10 @@ public class Word {
         return sum;
     }
     
+    /**
+     *a unique id for each word
+     * @return
+     */
     public int getID(){
         int sum=0;
         for(Space s : word)
@@ -112,6 +134,7 @@ public class Word {
         }
         return true;
     }
+    @Override
     public int hashCode(){
         return id*4;
     }

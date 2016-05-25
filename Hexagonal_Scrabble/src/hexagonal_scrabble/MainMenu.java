@@ -28,6 +28,7 @@ public class MainMenu extends javax.swing.JPanel {
     Tile t = new BlankTile (100,100);
     private double mouseX;
     private double mouseY;
+    private Player victor;
     private int gameState;
     private LetterChooser c;
     private BlankTile selected;
@@ -50,6 +51,7 @@ public class MainMenu extends javax.swing.JPanel {
         jButton5.setVisible(false);
         jButton6.setVisible(false);
         jButton7.setVisible(false);
+        jButton8.setVisible(false);
         b = new Board(500,50);
         frame = new JFrame("Choose a Letter");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -89,6 +91,7 @@ public class MainMenu extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
 
         jPopupMenu1.setMaximumSize(new java.awt.Dimension(100, 100));
         jPopupMenu1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -197,6 +200,14 @@ public class MainMenu extends javax.swing.JPanel {
 
         jLabel6.setText("Tiles Left: ");
 
+        jButton8.setText("End Game");
+        jButton8.setToolTipText("");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,7 +216,7 @@ public class MainMenu extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -217,8 +228,12 @@ public class MainMenu extends javax.swing.JPanel {
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(639, 639, 639))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(616, 616, 616))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton1)
+                                    .addComponent(jLabel2))
+                                .addGap(447, 447, 447)
+                                .addComponent(jButton8)
+                                .addGap(88, 88, 88))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -232,9 +247,7 @@ public class MainMenu extends javax.swing.JPanel {
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(316, 316, 316)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton3)))
@@ -265,23 +278,22 @@ public class MainMenu extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addComponent(jLabel6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton6)
-                            .addComponent(jButton2)
-                            .addComponent(jButton4)
-                            .addComponent(jButton5)
-                            .addComponent(jButton3))
-                        .addContainerGap())))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton2)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jButton3))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -307,13 +319,13 @@ public class MainMenu extends javax.swing.JPanel {
             jButton4.setVisible(true);
             jButton5.setVisible(true);
             jButton6.setVisible(true);
+            jButton8.setVisible(true);
             gameState++;
         }
     }//GEN-LAST:event_jButton1MouseClicked
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         g.setColor(Color.black);
-        g.drawString("Welcome to Hexagonal Scrabble!",100,100);
         currWords = b.getWords();
         if(currPlayer!=null)
             currPlayer.getHand().draw(g);
@@ -321,14 +333,17 @@ public class MainMenu extends javax.swing.JPanel {
         jLabel3.setText((currPlayer!=null)?"Player: " + currPlayer.getName():"");
         jLabel4.setText((gameState==2 && currWords!=null)?"Points: " + b.getPoints():"");
         jLabel6.setText((gameState==2 && currWords!=null)?"Tiles Left: " + TileBag.getInstance().size():"");
-        if(gameState == 2){
+        if(gameState >= 2){
             b.draw(g);
             String str="";
             for(Player p : players){
                 str+=p.getName()+ ":  " + p.getPoints() + "        ";
             }
             jLabel5.setText(str);
-            if(currWords!=null){
+            if(gameState==3){
+                jLabel4.setText("");
+            }
+            else if(currWords!=null){
                 int sum=0;
                 for(Word w : currWords)
                     sum+=w.points();
@@ -336,6 +351,11 @@ public class MainMenu extends javax.swing.JPanel {
             }
             else{
                jLabel4.setText("Points: " + 0); 
+            }
+            if(gameState==3){
+                g.setColor(Color.black);
+                g.setFont(g.getFont().deriveFont(g.getFont().getStyle(), 20));
+                g.drawString("The winner is: " + victor.getName() +"!",460,680);
             }
         }
         else{
@@ -353,6 +373,7 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
+        if(gameState==2){
         Point pos =this.getMousePosition();
         mouseX = pos.getX();
         mouseY = pos.getY();
@@ -429,6 +450,7 @@ public class MainMenu extends javax.swing.JPanel {
                 }
             }
         }
+    }
     }//GEN-LAST:event_formMouseClicked
 
     private void jPopupMenu1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenu1PopupMenuWillBecomeVisible
@@ -438,11 +460,12 @@ public class MainMenu extends javax.swing.JPanel {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try{
+            if(!b.playedTiles().isEmpty()){
         boolean valid = false;
         for(Space s : b.playedTiles()){
             if(b.touchingPermanentTile(s) 
                || (s.getSpecial()!=null && 
-                 s.getSpecial().equals("Star")))
+                 s.getSpecial().equals("Star") && b.playedTiles().size()>1))
                 valid = true;
         }
         if(!b.playedTiles().isEmpty() && b.contains(mouseX,mouseY)!=null && valid){
@@ -466,6 +489,13 @@ public class MainMenu extends javax.swing.JPanel {
             }
         
         }
+                    if(TileBag.getInstance().isEmpty())
+                endGame();
+            }
+            else{
+                jTextArea1.setVisible(true);
+            jTextArea1.setText("Please play a word."); 
+            }
         }
         catch(NullPointerException e){
             jTextArea1.setVisible(true);
@@ -524,6 +554,35 @@ public class MainMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        endGame();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void endGame(){
+        for(Player p : players){
+            p.addPoints(-1*p.getHand().getPoints());
+        }
+        Player winner = null;
+        int max = Integer.MIN_VALUE;
+        for(Player p : players){
+            if(p.getPoints()>max){
+                max=p.getPoints();
+                winner=p;
+            }
+        }
+        victor = winner;
+        currPlayer=null;
+        repaint();
+        gameState++;
+        jButton2.setVisible(false);
+        jButton3.setVisible(false);
+        jButton4.setVisible(false);
+        jButton5.setVisible(false);
+        jButton6.setVisible(false);
+        jButton8.setVisible(false);
+        repaint();
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -533,6 +592,7 @@ public class MainMenu extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -545,3 +605,4 @@ public class MainMenu extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
+

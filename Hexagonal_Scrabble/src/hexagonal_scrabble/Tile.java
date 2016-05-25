@@ -109,7 +109,13 @@ public class Tile{
      }
  }
  
- public boolean contains(double x, double y){
+    /**
+     *Returns true if the given point is within the tile area
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean contains(double x, double y){
      return((x>=this.x && x<=this.x+length)&&(y>=this.y && y<=this.y+length));
  }
  
@@ -150,7 +156,12 @@ public boolean getSelected(){
 public int getHandIndex(){
     return handIndex;
 }
-public void setPermanent(boolean perm){
+
+    /**
+     *sets the tile to a either permanent or not permanent 
+     * @param perm
+     */
+    public void setPermanent(boolean perm){
      permanent = perm;
  }
  public boolean isPermanent(){

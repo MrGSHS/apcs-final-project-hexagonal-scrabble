@@ -32,6 +32,9 @@ public class Board {
         board = generate(x,y,Space.getRadius());
         setSpecials();
     }
+    
+    
+    //generates the board
     private Space[][] generate(int startX, int startY, int radius){//loops through and adds spaces in a hexagonal shape
         Space[][] spaces = new Space[50][50];
         int startIndex = 21, ctr = 6, x = startX, y= startY;
@@ -68,6 +71,8 @@ public class Board {
         return spaces;
     }
     
+    
+    //sets special tiles
     private void setSpecials(){
        board[0][21].setSpecial("TW");
        board[0][26].setSpecial("TW");
@@ -101,6 +106,7 @@ public class Board {
        
     }
     
+    @Override
     public String toString(){
         String str = "";
         for(int i = 0; i<board.length; i++){
@@ -121,6 +127,12 @@ public class Board {
          }
     }
     
+    /**
+     *returns the space that contains the given coordinate
+     * @param posX
+     * @param posY
+     * @return
+     */
     public Space contains(double posX, double posY){
         for(Space[] row : board){
             for(Space s : row){
@@ -147,7 +159,12 @@ public class Board {
         return getAdjacentSpaces(s.getX(),s.getY());
     }
     
-    
+    /**
+     *gets every space around the given tile
+     * @param x
+     * @param y
+     * @return
+     */
     public List<Space> getAdjacentSpaces(int x, int y){
         int radius = Space.getRadius();
         int xMod = (int)((Math.sqrt(3)/2.0)*radius), yMod = (int)((0.5)*radius);
@@ -161,10 +178,16 @@ public class Board {
         return spaces;
     }
     
+    /**
+     *finds the space, given the x and y coordinate
+     * @param x
+     * @param y
+     * @return
+     */
     public Space findSpace(int x,int y){
         for(Space[] row : board){
             for(Space s : row){
-                if(s!=null && s.contains(x,y))//&& s.getX()==x && s.getY()==y)
+                if(s!=null && s.contains(x,y))
                     return s;
             }
         }
@@ -175,6 +198,10 @@ public class Board {
         return findSpace(s.getX(),s.getY());
     }
     
+    /**
+     *gets all of the words currently in play
+     * @return
+     */
     public List<Word> getWords(){
         Set<Word> total = new HashSet<>();
         Set<Word> words=null;
@@ -237,6 +264,10 @@ public class Board {
         return finalW;
     }
     
+    /**
+     *returns true if played tiles are in one direction
+     * @return
+     */
     public boolean oneDirection(){
         List<Space> nonPerm = playedTiles();
         for(Space space : nonPerm){
@@ -257,6 +288,11 @@ public class Board {
         return touchingTile(findSpace(x,y));
     }
     
+    /**
+     *returns true if the given space is touching a tile
+     * @param s
+     * @return
+     */
     public boolean touchingTile(Space s){
         List<Space> temp = getAdjacentSpaces(s);
         for(Space space : temp){
@@ -266,6 +302,11 @@ public class Board {
         return false;
     }
     
+    /**
+     *returns true if touching a permanent tile
+     * @param s
+     * @return
+     */
     public boolean touchingPermanentTile(Space s){
         List<Space> temp = getAdjacentSpaces(s);
         for(Space space : temp){
@@ -275,12 +316,23 @@ public class Board {
         return false;
     }
     
+    /**
+     *returns the direction in which tiles are played
+     * @param s
+     * @return
+     */
     public int getDirections(Space s){
         if(s!=null)
             return getDirections(s.getX(),s.getY());
         return -1;
     }
     
+    /**
+     *returns how many directions are in play from words in play
+     * @param x
+     * @param y
+     * @return
+     */
     public int getDirections(int x, int y){
         List<Space> spaces = getAdjacentSpaces(x,y);
         int sum = 0;
@@ -296,12 +348,27 @@ public class Board {
         return sum;
     }
     
+    /**
+     *gets the space adjacent to the given space at the given index
+     * @param x
+     * @param y
+     * @param i
+     * @return
+     */
     public Space getAdjacentSpace(int x, int y, int i){
         if(i<=5 && findSpace(x,y)!=null)
             return getAdjacentSpaces(x,y).get(i);
         return null;
     }
     
+    /**
+     *gets all spaces radiating out from the space in a given direction, up to 
+     * a null tile
+     * @param x
+     * @param y
+     * @param i
+     * @return
+     */
     public List<Space> getAllAdjacentSpaces(int x, int y, int i){
         List<Space> spaces = new LinkedList<>();
         if(i<=5 && findSpace(x,y)!=null){
@@ -311,15 +378,14 @@ public class Board {
                 List<Space> newSpaces = getAllAdjacentSpaces(adjSpace.getX(),adjSpace.getY(),i);
                 if(newSpaces!=null)
                     spaces.addAll(newSpaces);
-//                if(i==0||i==1||i==5){
-//                    Collections.reverse(spaces);
-//                    System.out.println(spaces);
-//                }
             }            
         } 
         return spaces;
     }
     
+    /**
+     *makes every tile permanent
+     */
     public void makePermanent(){
         for(Space[] row : board){
             for(Space s : row){
@@ -330,6 +396,12 @@ public class Board {
             }
         }
     }
+
+    /**
+     *gets all points from words in play
+     * WARNING : DOES NOT WORK AS INTENDED, DO NOT USE
+     * @return
+     */
     public int getPoints(){
         int sum=0;
         for(Space[] row : board){
@@ -341,6 +413,10 @@ public class Board {
         return sum;
     }
     
+    /**
+     *clears all nonpermanent tiles and returns them
+     * @return
+     */
     public List<Tile> recall(){
         List<Space> played = playedTiles();
         List<Tile> tiles = new ArrayList<>();
@@ -351,6 +427,10 @@ public class Board {
         return tiles;
     }
     
+    /**
+     *gets the amount of nonpermanent tile
+     * @return
+     */
     public int getNonPermanent(){
         int sum=0;
         for(Space[] row : board){
@@ -362,6 +442,10 @@ public class Board {
         return sum;
     }
     
+    /**
+     *gets every played tile
+     * @return
+     */
     public List<Space> playedTiles(){
         List<Space> spaces = new ArrayList<>();
         for(Space[] row : board){

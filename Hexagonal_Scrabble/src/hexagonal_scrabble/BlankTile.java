@@ -6,7 +6,6 @@
 package hexagonal_scrabble;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 
 /**
@@ -26,12 +25,20 @@ public class BlankTile extends Tile{
      t=null;
  }
     
+    @Override
     public String toString(){
         return (t!=null)?t.toString():" ";
     }
+    @Override
     public char getVal(){
         return (t!=null)?t.getVal():' ';
 }
+
+    /**
+     *sets a new value for the contained tile
+     * @param s
+     */
+    @Override
     public void setVal(char s){
         t = new Tile(getX(),getY(),s,0);
     }
@@ -48,6 +55,7 @@ public class BlankTile extends Tile{
         t = new Tile(oldX,oldY,tile.getVal(),0);
         t.setSelected(tile.getSelected());
     }
+    @Override
     public void draw(Graphics g){
         if(t!=null){
             System.out.println(t.getX());
@@ -61,15 +69,18 @@ public class BlankTile extends Tile{
         }
  }
     
+    @Override
     public Tile getTile(){
         return t;
     }
     
+    @Override
     public Tile setTile(Tile t){
      setVal(t);
      return t;
     }
     
+    @Override
     public void setPosition(int x,int y){
         if(t!=null){
             super.setPosition(x,y);
@@ -79,6 +90,7 @@ public class BlankTile extends Tile{
             super.setPosition(x,y);
     }
      
+    @Override
     public void setSelected(boolean b){
         if(t!=null)
             t.setSelected(b);
@@ -86,6 +98,7 @@ public class BlankTile extends Tile{
             super.setSelected(b);
     }
     
+    @Override
     public boolean getSelected(){
         if(t!=null)
             return t.getSelected();
@@ -93,6 +106,7 @@ public class BlankTile extends Tile{
             return super.getSelected();
     }
     
+    @Override
     public void setHandIndex(int i){
         super.setHandIndex(i);
         if(t!=null)

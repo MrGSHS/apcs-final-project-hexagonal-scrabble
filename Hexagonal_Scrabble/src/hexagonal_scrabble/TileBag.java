@@ -39,6 +39,8 @@ public class TileBag {
 
         private static final TileBag INSTANCE = new TileBag();
     }
+    
+    //fills up the tile bag
     private List<Character> fillBag(){ //creates a list of random chars according to numEachLetter
         List<Character> list = new ArrayList<>();
         char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZb".toCharArray();
@@ -52,6 +54,8 @@ public class TileBag {
         Collections.shuffle(list);
         return list;
         }
+    
+    //generates every tile
     private List<Tile> makeTiles(){
         List<Character> chars = fillBag();
         ArrayList<Tile> tiles = new ArrayList<>();
@@ -68,6 +72,11 @@ public class TileBag {
         return tiles;
     }
     
+    /**
+     *gets the point value of a tile, given a char
+     * @param c
+     * @return
+     */
     public static int getPoints(char c){
         int points;
         if(c=='E'||c=='A'||c=='I'||c=='O'||c=='N'||c=='R'||c=='T'||c=='L'||
@@ -89,6 +98,11 @@ public class TileBag {
                 points = 0;
         return points;
     }
+
+    /**
+     *removes the next tile from the bag and returns it
+     * @return
+     */
     public Tile next(){
         return tiles.size()>0?tiles.remove(0):null;
     }
