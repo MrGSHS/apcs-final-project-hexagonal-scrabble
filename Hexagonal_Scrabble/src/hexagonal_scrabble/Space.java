@@ -108,7 +108,8 @@ public class Space {
     }
     
     public boolean contains(double posX, double posY){
-        int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);
+        //int yMod = (int)((Math.sqrt(3)/2.0)*radius), xMod = (int)((0.5)*radius);
+        double yMod = ((Math.sqrt(3)/2.0)*radius), xMod = ((0.5)*radius);
         if(posX>x+xMod||posX<x-xMod)
             return false;
         if(posY>y+radius||posY<y-radius)
