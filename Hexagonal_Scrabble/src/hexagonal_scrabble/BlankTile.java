@@ -58,13 +58,9 @@ public class BlankTile extends Tile{
     @Override
     public void draw(Graphics g){
         if(t!=null){
-            System.out.println(t.getX());
-            System.out.println(t.getY()+"\n");
             t.draw(g, new Color(192,3,3));
         }
         else{
-            System.out.println(this.getX());
-            System.out.println(this.getY()+"\n p");
             super.draw(g);
         }
  }
@@ -76,7 +72,7 @@ public class BlankTile extends Tile{
     
     @Override
     public Tile setTile(Tile t){
-     setVal(t);
+     this.t = t;
      return t;
     }
     
